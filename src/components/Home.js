@@ -1,5 +1,6 @@
 import { React, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import "./mytask.css";
 import {
   DialogContentContainer,
   Heading,
@@ -12,18 +13,21 @@ import {
   MenuItem,
   Menu,
   Toast,
+  EditableHeading,
+  Modal,
 } from "monday-ui-react-core";
 import {
   MoreActions,
   Favorite,
   DoubleCheck,
+  Offline
 } from "monday-ui-react-core/dist/allIcons";
 import sunimg from "../images/wb_sunny.png";
 
 const Home = () => {
   const [show, setShow] = useState(false);
   const [opentost, setOpenTost] = useState(true);
-  const [showToast, setShowToast] = useState(true);
+  const [showLoader, setShowLoader] = useState(false);
   const navigate = useNavigate();
   const { state } = useLocation();
   console.log(state, "seeeee");
@@ -65,6 +69,7 @@ const Home = () => {
                 height: "329px",
               }}
             >
+                {/* <Modal show={true} style={{height:"50px", width:"300px"}} /> */}
               <div>
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
@@ -87,16 +92,18 @@ const Home = () => {
                     </Toast>
                     // </div>
                   )}
-                  <Heading
-                    type={Heading.types.h2}
-                    value="Write your task name..."
+                  <EditableHeading
+                    type={EditableHeading.types.h1}
+                    placeholder="Write your task name..."
+                    brandFont={true}
                     style={{
                       fontWeight: "500",
                       fontSize: "32px",
                       lineHeight: "38px",
                       fontFamily: "Roboto",
                       color: "#676879",
-                      // paddingTop: "38px",
+                      marginLeft: "15px",
+                      marginTop: "30px",
                     }}
                   />
                   <img
@@ -198,14 +205,24 @@ const Home = () => {
                   marginBottom: "15px",
                 }}
               >
-                <div style={{ display: "flex" }}>
-                  <div>
+                <div style={{ display: "flex", marginLeft: "22px" }}>
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: "400",
+                      lineHeight: "24px",
+                      fontFamily: "Roboto",
+                    }}
+                  >
                     <p>in</p>
                   </div>
                   <Tooltip
                     content="Select your default task board by searching and marking it with a star"
                     shouldShowOnMount
                     animationType="expand"
+                    tip={false}
+                    data-cy="ddddd"
+                    className="monday-style-tooltip-arrow.monday-style-arrow-dar"
                     style={{
                       backgroundColor: "#FEDB39",
                       color: "black",
@@ -216,7 +233,7 @@ const Home = () => {
                       style={{
                         width: "221px",
                         // height: "40px",
-                        marginTop: "5px",
+                        marginTop: "7px",
                         marginLeft: "8px",
                         fontSize: "16px",
                         fontWeight: "400",
@@ -251,6 +268,7 @@ const Home = () => {
                           {
                             label: "My Tasks",
                             value: 1,
+                            leftIcon: Offline
                           },
                           {
                             label: "Option 2",
@@ -267,6 +285,7 @@ const Home = () => {
                           {
                             label: "Option 5",
                             value: 5,
+                            
                           },
                         ]}
                         placeholder="My Tasks"

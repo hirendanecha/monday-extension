@@ -18,6 +18,8 @@ import {
   Avatar,
   Dialog,
   optionRenderer,
+  EditableHeading,
+  StoryDescription,
 } from "monday-ui-react-core";
 import {
   MoreActions,
@@ -31,7 +33,12 @@ import {
   NavigationChevronUp,
   PersonRound,
   Person,
+  CloseSmall,
+  Offline
+
 } from "monday-ui-react-core/dist/allIcons";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 import sunimg from "../images/wb_sunny.png";
 import green from "../images/green.png";
 import red from "../images/red.png";
@@ -47,6 +54,7 @@ const MyTask = () => {
   const [toast, setToast] = useState(true);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
+  const [value, setValue] = useState();
   const navigate = useNavigate();
 
   const labelStyle = {
@@ -65,17 +73,6 @@ const MyTask = () => {
     setShow(false);
     setToast(true);
     setDescription("");
-    // {
-    //   <Toast
-    //     open
-    //     actions={actions}
-    //     autoHideDuration={2000}
-    //     className="monday-storybook-toast_wrapper"
-    //     type={Toast.types.POSITIVE}
-    //   >
-    //     Tasked saved!
-    //   </Toast>;
-    // }
     navigate("/home", {
       state: {
         toast,
@@ -83,42 +80,24 @@ const MyTask = () => {
     });
   };
 
-  const options = useMemo(
+  const optionsAvatar = useMemo(
     () => [
       {
-        id: "Hadas Farhi",
-        label: "Hadas Farhi",
-        src: { red },
-        type: Avatar.types.IMG,
-        position: "(Frontend Developer)",
-        categoryId: "suggestedPeople",
-      },
-      {
-        id: "Rotem Dekel",
+        value: "Rotem",
         label: "Rotem Dekel",
-        src: {green},
-        type: Avatar.types.IMG,
-        position: "(Product Designer)",
-        categoryId: "suggestedPeople",
+        leftAvatar: Offline,
       },
       {
-        id: "Netta Muller",
+        value: "Hadas",
+        label: "Hadas Farhi",
+        leftAvatar: violate,
+      },
+      {
+        value: "Netta",
         label: "Netta Muller",
-        src: PersonRound,
-        type: Avatar.types.IMG,
-        position: "(Brand Designer)",
-        categoryId: "suggestedPeople",
+        leftAvatar: green,
       },
     ],
-    []
-  );
-  const categories = useMemo(
-    () => ({
-      suggestedPeople: {
-        id: "suggestedPeople",
-        label: "Suggested people",
-      },
-    }),
     []
   );
 
@@ -152,9 +131,10 @@ const MyTask = () => {
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <Heading
-                    type={Heading.types.h2}
-                    value="My first task here Yay!"
+                  <EditableHeading
+                    type={EditableHeading.types.h1}
+                    placeholder="My first task here Yay!"
+                    brandFont={true}
                     style={{
                       fontWeight: "500",
                       fontSize: "32px",
@@ -162,7 +142,7 @@ const MyTask = () => {
                       fontFamily: "Roboto",
                       color: "#323338",
                       marginLeft: "15px",
-                      // paddingTop: "38px",
+                      marginTop: "30px",
                     }}
                   />
                   <img
@@ -177,8 +157,9 @@ const MyTask = () => {
                 <div
                   style={{
                     height: "auto",
-                    marginLeft: "30px",
+                    marginLeft: "22px",
                     marginRight: "38px",
+                    marginTop: "15px",
                   }}
                 >
                   <div style={{ display: "flex" }}>
@@ -187,16 +168,22 @@ const MyTask = () => {
                       //   className="monday-storybook-text-field_size"
                       iconName={Attach}
                       size={TextField.sizes.MEDIUM}
-                      type={TextField.types.PASSWORD}
-                      checked
                       //   onChange={(e) => {
                       //     setFile(e);
                       //   }}
                     />
+                    {/* <input
+                      type="file"
+                      name="img1"
+                      id="img1"
+                      onchange="document.getElementById('file_name').value = this.value.split('\\').pop().split('/').pop()"
+                    /> */}
+                    {/* <input type="text" name="file_name" id="file_name" /> */}
                   </div>
                   <div style={{ display: "flex", marginTop: "24px" }}>
                     <label style={labelStyle}>Date</label>
                     <TextField
+                      style={{ marginLeft: "50px" }}
                       size={TextField.sizes.MEDIUM}
                       type={TextField.types.DATE}
                       //   onChange={(e) => {
@@ -233,7 +220,7 @@ const MyTask = () => {
                     <form
                       style={{
                         height: "auto",
-                        marginLeft: "30px",
+                        marginLeft: "22px",
                         marginRight: "38px",
                       }}
                     >
@@ -255,7 +242,6 @@ const MyTask = () => {
                         <div
                           style={{
                             width: "470px",
-                            marginTop: "5px",
                             fontSize: "16px",
                             fontWeight: "400",
                             lineHeight: "24px",
@@ -278,16 +264,18 @@ const MyTask = () => {
                               {
                                 label: "Lead",
                                 value: 1,
-                                leftImage: red,
+                                leftAvatar: red,
                                 // type: Avtar.types.IMG,
                               },
                               {
                                 label: "In progress",
                                 value: 2,
+                                leftAvatar: green,
                               },
                               {
                                 label: "Done",
                                 value: 3,
+                                leftAvatar: violate,
                               },
                             ]}
                             placeholder="Set status"
@@ -300,71 +288,135 @@ const MyTask = () => {
 
                         <div
                           className="star-rating"
-                          style={{ border: "1px solid gray", width: "470px" }}
+                          style={{
+                            border: "1px solid gray",
+                            width: "470px",
+                            height: "35px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                          }}
                         >
-                          {[...Array(5)].map((star, index) => {
-                            index += 1;
-                            return (
-                              <button
-                                type="button"
-                                key={index}
-                                className={
-                                  index <= (hover || rating) ? "on" : "off"
-                                }
-                                onClick={() => setRating(index)}
-                                onMouseEnter={() => setHover(index)}
-                                onMouseLeave={() => setHover(rating)}
-                              >
-                                <span
-                                  className="star"
-                                  style={{ fontSize: "25px" }}
+                          <div>
+                            {[...Array(5)].map((star, index) => {
+                              index += 1;
+                              return (
+                                <button
+                                  type="button"
+                                  key={index}
+                                  className={
+                                    index <= (hover || rating) ? "on" : "off"
+                                  }
+                                  onClick={() => setRating(index)}
+                                  // onMouseEnter={() => setHover(index)}
+                                  // onMouseLeave={() => setHover(rating)}
                                 >
-                                  &#9733;
-                                </span>
-                              </button>
-                            );
-                          })}
+                                  <span
+                                    className="star"
+                                    style={{ fontSize: "15px" }}
+                                  >
+                                    <Icon
+                                      iconType={Icon.type.ICON_FONT}
+                                      iconLabel="my font awesome start icon"
+                                      icon="fa fa-star"
+                                      // iconSize={2}
+                                    />
+                                  </span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                          <Icon
+                            onClick={() => {
+                              // console.log(rating);
+                              setRating(0);
+                            }}
+                            iconType={Icon.type.ICON_FONT}
+                            iconLabel="my font awesome start icon"
+                            icon={CloseSmall}
+                            iconSize={25}
+                            style={{ marginRight: "5px" }}
+                          />
                         </div>
                       </div>
                       <div style={{ display: "flex", marginTop: "24px" }}>
                         <label style={labelStyle}>Person</label>
-                        <Flex
+                        <div
                           style={{
-                            width: "100%",
-                            height: "270px",
+                            width: "470px",
+                            fontSize: "16px",
+                            fontWeight: "400",
+                            lineHeight: "24px",
+                            fontFamily: "Roboto",
                           }}
-                          justify={Flex.justify.CENTER}
-                          align={Flex.align.START}
                         >
-                          <Dialog
-                            content={() => (
-                              <DialogContentContainer className="combobox-stories-styles_wrapper">
-                                <Combobox
-                                  options={options}
-                                  categories={categories}
-                                  size={Combobox.sizes.SMALL}
-                                  placeholder="Search"
-                                />
-                              </DialogContentContainer>
-                            )}
-                            tooltip
-                            position={Dialog.positions.BOTTOM}
-                            open={true}
-                          >
-                            <div className="person-picker-mock">
-                              <Avatar
-                                size={Avatar.sizes.SMALL}
-                                src={green}
-                                type={Avatar.types.IMG}
-                              />
-                            </div>
-                          </Dialog>
-                        </Flex>
+                          <Dropdown
+                            // defaultValue={[optionsAvatar[0]]}
+                            options={optionsAvatar}
+                            src={red}
+                            multi
+                            multiline
+                            className="dropdown-stories-styles_with-chips"
+                            placeholder="Select a person"
+                          />
+                        </div>
+                      </div>
+                      <div style={{ display: "flex", marginTop: "24px" }}>
+                        <label style={labelStyle}>Phone</label>
+                        <div
+                          style={{
+                            width: "372px",
+                            fontSize: "16px",
+                            fontWeight: "400",
+                            lineHeight: "24px",
+                            fontFamily: "Roboto",
+                            height: "35px",
+                          }}
+                        >
+                          <PhoneInput
+                            placeholder="Enter phone number"
+                            value={value}
+                            onChange={setValue}
+                            style={{
+                              width: "372px",
+                              fontSize: "20px",
+                              fontWeight: "400",
+                              lineHeight: "24px",
+                              fontFamily: "Roboto",
+                              height: "35px",
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <div style={{ display: "flex", marginTop: "24px" }}>
+                        <label style={labelStyle}>Number</label>
+                        <div
+                          style={{
+                            width: "372px",
+                            fontSize: "16px",
+                            fontWeight: "400",
+                            lineHeight: "24px",
+                            fontFamily: "Roboto",
+                            height: "35px",
+                          }}
+                        >
+                          <input
+                            type="number"
+                            style={{
+                              width: "363px",
+                              fontSize: "16px",
+                              fontWeight: "400",
+                              lineHeight: "24px",
+                              fontFamily: "Roboto",
+                              height: "34px",
+                            }}
+                          />
+                        </div>
                       </div>
                     </form>
                   </div>
                 )}
-                <div style={{ display: "flex" }}>
+                <div style={{ display: "flex", marginLeft: "19px" }}>
                   {!show && (
                     <Icon
                       onClick={() => setShow((pre) => !pre)}
@@ -411,19 +463,30 @@ const MyTask = () => {
                   display: "flex",
                   justifyContent: "space-between",
                   marginBottom: "15px",
-                  marginTop: "30px",
+                  marginTop: "15px",
                 }}
               >
-                <div style={{ display: "flex" }}>
-                  <div>
+                <div style={{ display: "flex", marginLeft: "22px" }}>
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: "400",
+                      lineHeight: "24px",
+                      fontFamily: "Roboto",
+                    }}
+                  >
                     <p>in</p>
                   </div>
                   <div
                     style={{
                       width: "221px",
                       // height: "40px",
-                      marginTop: "5px",
+                      marginTop: "7px",
                       marginLeft: "8px",
+                      fontSize: "16px",
+                      fontWeight: "400",
+                      lineHeight: "24px",
+                      fontFamily: "Roboto",
                     }}
                   >
                     <Dropdown
@@ -464,7 +527,7 @@ const MyTask = () => {
                     />
                   </div>
                 </div>
-                <div style={{ marginRight: "55px" }}>
+                <div style={{ marginRight: "36px" }}>
                   <Button onClick={(event) => handleSubmit(event)}>
                     Create
                   </Button>
