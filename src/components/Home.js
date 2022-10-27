@@ -2,6 +2,7 @@ import { React, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./mytask.css";
 import {
+  Avatar,
   DialogContentContainer,
   Heading,
   Icon,
@@ -20,9 +21,18 @@ import {
   MoreActions,
   Favorite,
   DoubleCheck,
-  Offline
+  Offline,
+  Wand,
+  ThumbsUp,
+  Time,
+  Update,
+  Upgrade,
 } from "monday-ui-react-core/dist/allIcons";
 import sunimg from "../images/wb_sunny.png";
+import green from "../images/green.png";
+import red from "../images/red.png";
+import violate from "../images/violate.png";
+import "semantic-ui-css/semantic.min.css";
 
 const Home = () => {
   const [show, setShow] = useState(false);
@@ -42,6 +52,60 @@ const Home = () => {
     ],
     []
   );
+
+  const options = useMemo(
+    () => [
+      {
+        id: "1",
+        value: 1,
+        label: "Option 1",
+        leftIcon: Favorite,
+      },
+      {
+        id: "2",
+        value: 2,
+        label: "Option 2",
+        leftIcon: Favorite,
+      },
+      {
+        id: "3",
+        value: 3,
+        label: "Option 3",
+        leftIcon: Favorite,
+      },
+      {
+        id: "4",
+        value: 4,
+        label: "Option 4",
+        leftIcon: Favorite,
+      },
+      {
+        id: "5",
+        value: 5,
+        label: "Option 5",
+        leftIcon: Favorite,
+      },
+    ],
+    []
+  );
+
+  const renderer = (props) => {
+    const { id, label, leftIcon: Icon } = props;
+    return (
+      <div key={id}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          {label}
+          <Icon />
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div>
@@ -69,7 +133,7 @@ const Home = () => {
                 height: "329px",
               }}
             >
-                {/* <Modal show={true} style={{height:"50px", width:"300px"}} /> */}
+              {/* <Modal show={true} style={{height:"50px", width:"300px"}} /> */}
               <div>
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
@@ -212,6 +276,7 @@ const Home = () => {
                       fontWeight: "400",
                       lineHeight: "24px",
                       fontFamily: "Roboto",
+                      marginTop:"15px"
                     }}
                   >
                     <p>in</p>
@@ -242,58 +307,21 @@ const Home = () => {
                       }}
                     >
                       <Dropdown
-                        className="dropdown-stories-styles_with-chips"
-                        onBlur={function noRefCheck() {}}
-                        // onChange={() => navigate("/mytask")}
-                        onClear={function noRefCheck() {}}
-                        onFocus={function noRefCheck() {}}
-                        onInputChange={function noRefCheck() {}}
-                        onMenuClose={function noRefCheck() {}}
-                        onMenuOpen={function noRefCheck() {}}
-                        onOptionRemove={function noRefCheck() {}}
                         onOptionSelect={() => navigate("/mytask")}
-                        openMenuOnFocus={function noRefCheck() {}}
+                        // defaultValue={[options[0]]}
+                        options={options}
+                        optionRenderer={renderer}
+                        placeholder="My Tasks"
+                        className="dropdown-stories-styles_with-chips"
                         noOptionsMessage={() =>
                           "No board found. You can create a new board in monday.com"
                         }
                         menuPlacement="top"
-                        // extraStyles={{}}
-                        style={{
-                          fontSize: "16px",
-                          fontWeight: "400",
-                          lineHeight: "24px",
-                          fontFamily: "Roboto",
-                        }}
-                        options={[
-                          {
-                            label: "My Tasks",
-                            value: 1,
-                            leftIcon: Offline
-                          },
-                          {
-                            label: "Option 2",
-                            value: 2,
-                          },
-                          {
-                            label: "Option 3",
-                            value: 3,
-                          },
-                          {
-                            label: "Option 4",
-                            value: 4,
-                          },
-                          {
-                            label: "Option 5",
-                            value: 5,
-                            
-                          },
-                        ]}
-                        placeholder="My Tasks"
                       />
                     </div>
                   </Tooltip>
                 </div>
-                <div style={{ marginRight: "55px" }}>
+                <div style={{ marginRight: "55px", marginTop: "6px" }}>
                   <Button disabled>Create</Button>
                 </div>
               </div>

@@ -34,8 +34,12 @@ import {
   PersonRound,
   Person,
   CloseSmall,
-  Offline
-
+  Offline,
+  Wand,
+  ThumbsUp,
+  Time,
+  Update,
+  Upgrade,
 } from "monday-ui-react-core/dist/allIcons";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
@@ -80,22 +84,78 @@ const MyTask = () => {
     });
   };
 
-  const optionsAvatar = useMemo(
+  const options = useMemo(
     () => [
       {
-        value: "Rotem",
-        label: "Rotem Dekel",
-        leftAvatar: Offline,
+        id: "1",
+        value: 1,
+        label: "Lead",
+        leftIcon: red,
       },
       {
-        value: "Hadas",
+        id: "2",
+        value: 2,
+        label: "In progress",
+        leftIcon: violate,
+      },
+      {
+        id: "3",
+        value: 3,
+        label: "Done",
+        leftIcon: green,
+      },
+    ],
+    []
+  );
+
+  const renderer = (props) => {
+    console.log(props, "dfdfb");
+    const { id, label, leftIcon: Icon } = props;
+    return (
+      <div key={id}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <img src={Icon} style={{ marginRight: "10px" }} />
+          {label}
+        </div>
+      </div>
+    );
+  };
+
+  const optionRenderer = (props) => {
+    console.log("redererrrr", props);
+    const { id, label, src: Icon } = props;
+    return (
+      <div key={id}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Icon style={{ marginRight: "10px" }} />
+          {label}
+        </div>
+      </div>
+    );
+  };
+
+  const options1 = useMemo(
+    () => [
+      {
+        value: "Dor Yehuda",
         label: "Hadas Farhi",
-        leftAvatar: violate,
+        src: Wand,
+        type: Avatar.types.IMG,
+        size: Avatar.sizes.SMALL,
       },
       {
-        value: "Netta",
+        value: "No",
+        label: "Rotem Dekel",
+        src: PersonRound,
+        type: Avatar.types.IMG,
+        size: Avatar.sizes.SMALL,
+      },
+      {
+        value: "Yes",
         label: "Netta Muller",
-        leftAvatar: green,
+        src: Person,
+        type: Avatar.types.IMG,
+        size: Avatar.sizes.SMALL,
       },
     ],
     []
@@ -248,7 +308,7 @@ const MyTask = () => {
                             fontFamily: "Roboto",
                           }}
                         >
-                          <Dropdown
+                          {/* <Dropdown
                             className="dropdown-stories-styles_spacing"
                             onBlur={function noRefCheck() {}}
                             // onChange={() => navigate("/mytask")}
@@ -260,12 +320,12 @@ const MyTask = () => {
                             onOptionRemove={function noRefCheck() {}}
                             onOptionSelect={() => navigate("/mytask")}
                             openMenuOnFocus={function noRefCheck() {}}
+                            optionRenderer={renderer}
                             options={[
                               {
                                 label: "Lead",
                                 value: 1,
                                 leftAvatar: red,
-                                // type: Avtar.types.IMG,
                               },
                               {
                                 label: "In progress",
@@ -279,6 +339,14 @@ const MyTask = () => {
                               },
                             ]}
                             placeholder="Set status"
+                          /> */}
+                          <Dropdown
+                            onOptionSelect={() => navigate("/mytask")}
+                            // defaultValue={[options[0]]}
+                            options={options}
+                            optionRenderer={renderer}
+                            placeholder="Set status"
+                            className="dropdown-stories-styles_with-chips"
                           />
                         </div>
                       </div>
@@ -291,10 +359,11 @@ const MyTask = () => {
                           style={{
                             border: "1px solid gray",
                             width: "470px",
-                            height: "35px",
+                            height: "38px",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "space-between",
+                            borderRadius: "3px",
                           }}
                         >
                           <div>
@@ -313,7 +382,7 @@ const MyTask = () => {
                                 >
                                   <span
                                     className="star"
-                                    style={{ fontSize: "15px" }}
+                                    style={{ fontSize: "16px" }}
                                   >
                                     <Icon
                                       iconType={Icon.type.ICON_FONT}
@@ -326,17 +395,19 @@ const MyTask = () => {
                               );
                             })}
                           </div>
-                          <Icon
-                            onClick={() => {
-                              // console.log(rating);
-                              setRating(0);
-                            }}
-                            iconType={Icon.type.ICON_FONT}
-                            iconLabel="my font awesome start icon"
-                            icon={CloseSmall}
-                            iconSize={25}
-                            style={{ marginRight: "5px" }}
-                          />
+                          {rating > 0 && (
+                            <Icon
+                              onClick={() => {
+                                // console.log(rating);
+                                setRating(0);
+                              }}
+                              iconType={Icon.type.ICON_FONT}
+                              iconLabel="my font awesome start icon"
+                              icon={CloseSmall}
+                              iconSize={25}
+                              style={{ marginRight: "5px" }}
+                            />
+                          )}
                         </div>
                       </div>
                       <div style={{ display: "flex", marginTop: "24px" }}>
@@ -350,7 +421,7 @@ const MyTask = () => {
                             fontFamily: "Roboto",
                           }}
                         >
-                          <Dropdown
+                          {/* <Dropdown
                             // defaultValue={[optionsAvatar[0]]}
                             options={optionsAvatar}
                             src={red}
@@ -358,6 +429,12 @@ const MyTask = () => {
                             multiline
                             className="dropdown-stories-styles_with-chips"
                             placeholder="Select a person"
+                          /> */}
+                          <Dropdown
+                            options={options1}
+                            placeholder="Select a person"
+                            optionRenderer={optionRenderer}
+                            className="dropdown-stories-styles_with-chips"
                           />
                         </div>
                       </div>
@@ -397,7 +474,7 @@ const MyTask = () => {
                             fontWeight: "400",
                             lineHeight: "24px",
                             fontFamily: "Roboto",
-                            height: "35px",
+                            height: "40px",
                           }}
                         >
                           <input
@@ -408,9 +485,17 @@ const MyTask = () => {
                               fontWeight: "400",
                               lineHeight: "24px",
                               fontFamily: "Roboto",
-                              height: "34px",
+                              height: "39px",
                             }}
                           />
+                          {/* <TextField
+                            style={{ marginLeft: "0px" }}
+                            size={TextField.sizes.MEDIUM}
+                            type={TextField.types.NUMBER}
+                            //   onChange={(e) => {
+                            //     setDate(e);
+                            //   }}
+                          /> */}
                         </div>
                       </div>
                     </form>
@@ -424,7 +509,7 @@ const MyTask = () => {
                       icon={MoreActions}
                       iconLabel="my bolt svg icon"
                       iconSize={20}
-                      style={{ paddingTop: "25px" }}
+                      style={{ marginTop: "25px" }}
                     />
                   )}
                   {show && (
@@ -434,7 +519,7 @@ const MyTask = () => {
                       icon={DropdownChevronUp}
                       iconLabel="my bolt svg icon"
                       iconSize={20}
-                      style={{ paddingTop: "25px" }}
+                      style={{ marginTop: "25px" }}
                     />
                   )}
 
@@ -451,8 +536,8 @@ const MyTask = () => {
                         margin: "25px 0 0 10px",
                       }}
                     >
-                      {!show && "4 more Inputs"}
-                      {show && "Hide 4 Inputs"}
+                      {!show && "6 more Inputs"}
+                      {show && "Hide 6 Inputs"}
                     </p>
                   </div>
                 </div>
@@ -473,6 +558,7 @@ const MyTask = () => {
                       fontWeight: "400",
                       lineHeight: "24px",
                       fontFamily: "Roboto",
+                      marginTop:"15px"
                     }}
                   >
                     <p>in</p>
@@ -527,7 +613,7 @@ const MyTask = () => {
                     />
                   </div>
                 </div>
-                <div style={{ marginRight: "36px" }}>
+                <div style={{ marginRight: "36px", marginTop: "6px" }}>
                   <Button onClick={(event) => handleSubmit(event)}>
                     Create
                   </Button>
