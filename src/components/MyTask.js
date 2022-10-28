@@ -41,8 +41,10 @@ import {
   Update,
   Upgrade,
 } from "monday-ui-react-core/dist/allIcons";
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
+// import "react-phone-number-input/style.css";
+// import PhoneInput from "react-phone-number-input";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import sunimg from "../images/wb_sunny.png";
 import green from "../images/green.png";
 import red from "../images/red.png";
@@ -55,10 +57,10 @@ const MyTask = () => {
   const [date, setDate] = useState("");
   const [link, setLink] = useState("");
   const [email, setEmail] = useState("");
-  const [toast, setToast] = useState(true);
+  const [toast, setToast] = useState(false);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
-  const [value, setValue] = useState();
+  const [phone, setPhone] = useState();
   const navigate = useNavigate();
 
   const labelStyle = {
@@ -79,7 +81,7 @@ const MyTask = () => {
     setDescription("");
     navigate("/home", {
       state: {
-        toast,
+        toast: true,
       },
     });
   };
@@ -128,7 +130,7 @@ const MyTask = () => {
       <div key={id}>
         <div style={{ display: "flex", alignItems: "center" }}>
           <Icon style={{ marginRight: "10px" }} />
-          {label}
+          <span>{label}</span>
         </div>
       </div>
     );
@@ -137,29 +139,48 @@ const MyTask = () => {
   const options1 = useMemo(
     () => [
       {
+        id: "1",
         value: "Dor Yehuda",
         label: "Hadas Farhi",
         src: Wand,
+        leftIcon: Wand,
         type: Avatar.types.IMG,
         size: Avatar.sizes.SMALL,
       },
       {
+        id: "2",
         value: "No",
         label: "Rotem Dekel",
         src: PersonRound,
+        leftIcon: PersonRound,
         type: Avatar.types.IMG,
         size: Avatar.sizes.SMALL,
       },
       {
+        id: "3",
         value: "Yes",
         label: "Netta Muller",
         src: Person,
+        leftIcon: Person,
         type: Avatar.types.IMG,
         size: Avatar.sizes.SMALL,
       },
     ],
     []
   );
+
+  const valueRenderer = (props) => {
+    console.log("ValueRenderer", props);
+    const { id, label, src: Icon } = props;
+    return (
+      <div key={id}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Icon style={{ marginRight: "10px" }} />
+          {label}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div>
@@ -224,20 +245,21 @@ const MyTask = () => {
                 >
                   <div style={{ display: "flex" }}>
                     <label style={labelStyle}>Files</label>
-                    <TextField
+                    {/* <TextField
                       //   className="monday-storybook-text-field_size"
                       iconName={Attach}
                       size={TextField.sizes.MEDIUM}
                       //   onChange={(e) => {
                       //     setFile(e);
                       //   }}
-                    />
-                    {/* <input
+                    /> */}
+                    <input
                       type="file"
                       name="img1"
                       id="img1"
                       onchange="document.getElementById('file_name').value = this.value.split('\\').pop().split('/').pop()"
-                    /> */}
+                      style={{ marginTop: "10px" }}
+                    />
                     {/* <input type="text" name="file_name" id="file_name" /> */}
                   </div>
                   <div style={{ display: "flex", marginTop: "24px" }}>
@@ -308,38 +330,6 @@ const MyTask = () => {
                             fontFamily: "Roboto",
                           }}
                         >
-                          {/* <Dropdown
-                            className="dropdown-stories-styles_spacing"
-                            onBlur={function noRefCheck() {}}
-                            // onChange={() => navigate("/mytask")}
-                            onClear={function noRefCheck() {}}
-                            onFocus={function noRefCheck() {}}
-                            onInputChange={function noRefCheck() {}}
-                            onMenuClose={function noRefCheck() {}}
-                            onMenuOpen={function noRefCheck() {}}
-                            onOptionRemove={function noRefCheck() {}}
-                            onOptionSelect={() => navigate("/mytask")}
-                            openMenuOnFocus={function noRefCheck() {}}
-                            optionRenderer={renderer}
-                            options={[
-                              {
-                                label: "Lead",
-                                value: 1,
-                                leftAvatar: red,
-                              },
-                              {
-                                label: "In progress",
-                                value: 2,
-                                leftAvatar: green,
-                              },
-                              {
-                                label: "Done",
-                                value: 3,
-                                leftAvatar: violate,
-                              },
-                            ]}
-                            placeholder="Set status"
-                          /> */}
                           <Dropdown
                             onOptionSelect={() => navigate("/mytask")}
                             // defaultValue={[options[0]]}
@@ -350,14 +340,13 @@ const MyTask = () => {
                           />
                         </div>
                       </div>
-                      {/* <img src={red} alt="red" /> */}
                       <div style={{ display: "flex", marginTop: "24px" }}>
                         <label style={labelStyle}>Rating</label>
 
                         <div
                           className="star-rating"
                           style={{
-                            border: "1px solid gray",
+                            border: "1px solid rgba(0,0,0,.25)",
                             width: "470px",
                             height: "38px",
                             display: "flex",
@@ -421,46 +410,47 @@ const MyTask = () => {
                             fontFamily: "Roboto",
                           }}
                         >
-                          {/* <Dropdown
-                            // defaultValue={[optionsAvatar[0]]}
-                            options={optionsAvatar}
-                            src={red}
-                            multi
-                            multiline
-                            className="dropdown-stories-styles_with-chips"
-                            placeholder="Select a person"
-                          /> */}
                           <Dropdown
                             options={options1}
                             placeholder="Select a person"
                             optionRenderer={optionRenderer}
+                            valueRenderer={valueRenderer}
+                            // isOptionSelected={optionSelected}
                             className="dropdown-stories-styles_with-chips"
                           />
                         </div>
                       </div>
                       <div style={{ display: "flex", marginTop: "24px" }}>
-                        <label style={labelStyle}>Phone</label>
+                        <label style={{ ...labelStyle, width: "115px" }}>
+                          Phone
+                        </label>
                         <div
                           style={{
-                            width: "372px",
+                            width: "362px",
                             fontSize: "16px",
                             fontWeight: "400",
                             lineHeight: "24px",
                             fontFamily: "Roboto",
-                            height: "35px",
+                            height: "40px",
                           }}
                         >
                           <PhoneInput
-                            placeholder="Enter phone number"
-                            value={value}
-                            onChange={setValue}
+                            inputProps={{
+                              // name: "phone",
+                              required: true,
+                              // autoFocus: true,
+                            }}
+                            country={"us"}
+                            value={phone}
+                            onChange={(e) => {
+                              console.log(e);
+                              setPhone(e);
+                            }}
                             style={{
-                              width: "372px",
-                              fontSize: "20px",
+                              fontSize: "16px",
                               fontWeight: "400",
                               lineHeight: "24px",
                               fontFamily: "Roboto",
-                              height: "35px",
                             }}
                           />
                         </div>
@@ -486,16 +476,9 @@ const MyTask = () => {
                               lineHeight: "24px",
                               fontFamily: "Roboto",
                               height: "39px",
+                              border: "1px solid rgba(0,0,0,.25)",
                             }}
                           />
-                          {/* <TextField
-                            style={{ marginLeft: "0px" }}
-                            size={TextField.sizes.MEDIUM}
-                            type={TextField.types.NUMBER}
-                            //   onChange={(e) => {
-                            //     setDate(e);
-                            //   }}
-                          /> */}
                         </div>
                       </div>
                     </form>
@@ -558,7 +541,7 @@ const MyTask = () => {
                       fontWeight: "400",
                       lineHeight: "24px",
                       fontFamily: "Roboto",
-                      marginTop:"15px"
+                      marginTop: "15px",
                     }}
                   >
                     <p>in</p>

@@ -16,6 +16,10 @@ import {
   Toast,
   EditableHeading,
   Modal,
+  AlertBanner,
+  AlertBannerText,
+  AlertBannerLink,
+  Loader,
 } from "monday-ui-react-core";
 import {
   MoreActions,
@@ -28,6 +32,7 @@ import {
   Update,
   Upgrade,
 } from "monday-ui-react-core/dist/allIcons";
+import "./home.css";
 import sunimg from "../images/wb_sunny.png";
 import green from "../images/green.png";
 import red from "../images/red.png";
@@ -36,11 +41,38 @@ import "semantic-ui-css/semantic.min.css";
 
 const Home = () => {
   const [show, setShow] = useState(false);
-  const [opentost, setOpenTost] = useState(true);
+  const { state } = useLocation();
+  const [opentost, setOpenTost] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
   const navigate = useNavigate();
-  const { state } = useLocation();
   console.log(state, "seeeee");
+
+  useEffect(() => {
+    var t, k;
+    if (!!state?.toast) {
+      setShowLoader(true);
+      t = setTimeout(() => {
+        setShowLoader(false);
+        setOpenTost(true);
+      }, 3000);
+    }
+    if (!!state?.toast) {
+      k = setTimeout(() => {
+        setOpenTost(false);
+        navigate("/home", {
+          state: {
+            toast: false,
+          },
+        });
+      }, 6000);
+    }
+    return () => {
+      if (t) {
+        clearTimeout(t);
+        clearTimeout(k);
+      }
+    };
+  }, [state?.toast]);
 
   const actions = useMemo(
     () => [
@@ -53,58 +85,109 @@ const Home = () => {
     []
   );
 
+  const StarIcon = () => (
+    <button>
+      <Icon iconType={Icon.type.ICON_FONT} icon="fa-regular fa-star" />
+    </button>
+  );
+  const StarSolidIcon = () => (
+    <button style={{ color: "rgba(255, 204, 0, 0.779)" }}>
+      <Icon
+        iconType={Icon.type.ICON_FONT}
+        icon="fa-solid fa-star text-red"
+        style={{ color: "rgba(255, 204, 0, 0.779)" }}
+      />
+    </button>
+    // <Icon
+    //   iconType={Icon.type.ICON_FONT}
+    //   iconLabel="my font awesome start icon"
+    //   icon="fa fa-star"
+    //   style={{ color: "color: rgba(255, 204, 0, 0.779);" }}
+    // />
+  );
+
   const options = useMemo(
     () => [
       {
         id: "1",
         value: 1,
         label: "Option 1",
-        leftIcon: Favorite,
+        regular: StarIcon,
+        fill: StarSolidIcon,
       },
       {
         id: "2",
         value: 2,
         label: "Option 2",
-        leftIcon: Favorite,
+        regular: StarIcon,
+        fill: StarSolidIcon,
       },
       {
         id: "3",
         value: 3,
         label: "Option 3",
-        leftIcon: Favorite,
+        regular: StarIcon,
+        fill: StarSolidIcon,
       },
       {
         id: "4",
         value: 4,
         label: "Option 4",
-        leftIcon: Favorite,
+        regular: StarIcon,
+        fill: StarSolidIcon,
       },
       {
         id: "5",
         value: 5,
         label: "Option 5",
-        leftIcon: Favorite,
+        regular: StarIcon,
+        fill: StarSolidIcon,
       },
     ],
     []
   );
 
-  const renderer = (props) => {
-    const { id, label, leftIcon: Icon } = props;
+  const Option = (props) => {
+    const { id, label, regular: Star, fill: SolidStar, selectedId } = props;
     return (
-      <div key={id}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          {label}
-          <Icon />
-        </div>
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        {label}
+        {id === selectedId ? <SolidStar /> : <Star />}
       </div>
     );
+  };
+
+  const [selectedId, setSelectedId] = useState("0");
+  const RenderOption = (props) => {
+    const { id } = props;
+    console.log("render", id);
+    return (
+      <div
+        key={id}
+        style={{ width: "100%" }}
+        onMouseOver={() => {
+          console.log("hover", id);
+          setSelectedId(id);
+        }}
+      >
+        <Option {...props} selectedId={selectedId} />
+      </div>
+    );
+  };
+
+  const renderer = (props) => {
+    return <RenderOption {...props} />;
+  };
+
+  const selectedOption = (props) => {
+    console.log(props, "selected option");
   };
 
   return (
@@ -122,15 +205,22 @@ const Home = () => {
             width: "548px",
             height: "auto",
             boxShadow: "0px 15px 50px rgba(0, 0, 0, 0.3)",
+            position: "relative",
           }}
         >
-          <div>
+          <div id={showLoader ? "overlay" : ""}>
+            {showLoader&&<div style={{ position: "absolute", right: "50%", bottom: "50%" }}>
+              <Loader
+                size={40}
+              />
+            </div>}
             <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 flexDirection: "column",
                 height: "329px",
+                position: "relative",
               }}
             >
               {/* <Modal show={true} style={{height:"50px", width:"300px"}} /> */}
@@ -138,24 +228,33 @@ const Home = () => {
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  {state && state.toast && (
-                    // <div style={{width:"480px"}}>
-                    <Toast
-                      width={"500px"}
-                      open={opentost}
+                  {opentost && (
+                    // <div style={{display:"flex", justifyContent:"center"}}>
+                    <AlertBanner
+                      backgroundColor={AlertBanner.backgroundColors.POSITIVE}
                       onClose={() => setOpenTost(false)}
-                      // closeable= {false}
-                      // hideIcon={true}
-                      actions={actions}
-                      autoHideDuration={1500}
-                      className="monday-storybook-toast_wrapper"
-                      type={Toast.types.POSITIVE}
-                      // style={{width:"480px"}}
                     >
-                      Tasked saved!
-                    </Toast>
+                      <AlertBannerText text="Tasked saved !See it in" />
+                      <AlertBannerLink
+                        text="https://monday.com"
+                        href="https://monday.com"
+                      />
+                    </AlertBanner>
                     // </div>
                   )}
+                  {/* <Toast
+                    open={opentost}
+                    onClose={() => setOpenTost(false)}
+                    // closeable= {false}
+                    // hideIcon={true}
+                    actions={actions}
+                    autoHideDuration={3000}
+                    className="monday-storybook-toast_wrapper"
+                    type={Toast.types.POSITIVE}
+                    // style={{width:"480px"}}
+                  >
+                    Tasked saved!
+                  </Toast> */}
                   <EditableHeading
                     type={EditableHeading.types.h1}
                     placeholder="Write your task name..."
@@ -178,88 +277,6 @@ const Home = () => {
                     style={{ marginTop: "13px", marginRight: "14px" }}
                   />
                 </div>
-
-                <div style={{ display: "flex" }}>
-                  {/* <Icon
-                    onClick={() => setShow((pre) => !pre)}
-                    iconType={Icon.type.SVG}
-                    icon={MoreActions}
-                    iconLabel="my bolt svg icon"
-                    iconSize={20}
-                  /> */}
-
-                  {/* <div
-                    onClick={() => setShow(true)}
-                    style={{ display: "flex", cursor: "pointer" }}
-                  >
-                    <p
-                      style={{
-                        fontSize: "16px",
-                        fontWeight: "400",
-                        lineHeight: "24px",
-                        fontFamily: "Roboto",
-                        margin: "0 0 0 10px",
-                      }}
-                    >
-                      4 more Inputs{" "}
-                    </p>
-                  </div> */}
-
-                  {/* {show && (
-                    <>
-                      <div
-                        style={{
-                          cursor: "pointer",
-                          width: "221px",
-                          boxShadow: "0px 6px 20px rgba(0, 0, 0, 0.2)",
-                          borderRadius: "4px",
-                        }}
-                      >
-                        <Menu>
-                          <MenuItem
-                            onClick={() => {
-                              // setShow(false);
-                              navigate("/mytask");
-                            }}
-                            title="My Tasks"
-                            style={optionStyle}
-                            iconType={Icon.type.SVG}
-                            icon={Favorite}
-                            iconLabel="my bolt svg icon"
-                            iconSize={20}
-                          />
-                          <MenuItem
-                            // onClick={() => setShow(false)}
-                            title="Option 2"
-                            style={optionStyle}
-                            iconType={Icon.type.SVG}
-                            icon={Favorite}
-                            iconLabel="my bolt svg icon"
-                            iconSize={20}
-                          />
-                          <MenuItem
-                            // onClick={() => setShow(false)}
-                            title="Option 3"
-                            style={{...optionStyle, color:"yellow"}}
-                            iconType={Icon.type.SVG}
-                            iconLabel="my bolt svg icon"
-                            iconSize={20}
-                            icon={Favorite}
-                          />
-                          <MenuItem
-                            // onClick={() => setShow(false)}
-                            title="Option 4"
-                            style={optionStyle}
-                            iconType={Icon.type.SVG}
-                            icon={Favorite}
-                            iconLabel="my bolt svg icon"
-                            iconSize={20}
-                          />
-                        </Menu>
-                      </div>
-                    </>
-                  )} */}
-                </div>
               </div>
 
               <div
@@ -276,7 +293,7 @@ const Home = () => {
                       fontWeight: "400",
                       lineHeight: "24px",
                       fontFamily: "Roboto",
-                      marginTop:"15px"
+                      marginTop: "15px",
                     }}
                   >
                     <p>in</p>
@@ -285,14 +302,10 @@ const Home = () => {
                     content="Select your default task board by searching and marking it with a star"
                     shouldShowOnMount
                     animationType="expand"
-                    tip={false}
+                    // tip={false}
                     data-cy="ddddd"
                     className="monday-style-tooltip-arrow.monday-style-arrow-dar"
-                    style={{
-                      backgroundColor: "#FEDB39",
-                      color: "black",
-                      width: "254px",
-                    }}
+                    theme="success"
                   >
                     <div
                       style={{
@@ -309,8 +322,11 @@ const Home = () => {
                       <Dropdown
                         onOptionSelect={() => navigate("/mytask")}
                         // defaultValue={[options[0]]}
+                        openMenuOnFocus={true}
                         options={options}
                         optionRenderer={renderer}
+                        // isOptionSelected={selectedOption}
+                        onInputChange={selectedOption}
                         placeholder="My Tasks"
                         className="dropdown-stories-styles_with-chips"
                         noOptionsMessage={() =>

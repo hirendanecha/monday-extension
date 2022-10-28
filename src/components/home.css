@@ -1,0 +1,17 @@
+.monday-alert-banner {
+    position: absolute;
+    /* width: 400px !important; */
+}
+.monday-style-tooltip-success{
+    background-color: #FEDB39;
+    color: black !important;
+    width: 254px;
+}
+.monday-style-tooltip-success, .monday-style-tooltip-arrow.monday-style-arrow-success {
+    background-color: #FEDB39 !important;
+}
+#overlay {
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
