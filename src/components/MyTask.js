@@ -245,14 +245,6 @@ const MyTask = () => {
                 >
                   <div style={{ display: "flex" }}>
                     <label style={labelStyle}>Files</label>
-                    {/* <TextField
-                      //   className="monday-storybook-text-field_size"
-                      iconName={Attach}
-                      size={TextField.sizes.MEDIUM}
-                      //   onChange={(e) => {
-                      //     setFile(e);
-                      //   }}
-                    /> */}
                     <input
                       type="file"
                       name="img1"
@@ -260,7 +252,6 @@ const MyTask = () => {
                       onchange="document.getElementById('file_name').value = this.value.split('\\').pop().split('/').pop()"
                       style={{ marginTop: "10px" }}
                     />
-                    {/* <input type="text" name="file_name" id="file_name" /> */}
                   </div>
                   <div style={{ display: "flex", marginTop: "24px" }}>
                     <label style={labelStyle}>Date</label>
@@ -332,7 +323,6 @@ const MyTask = () => {
                         >
                           <Dropdown
                             onOptionSelect={() => navigate("/mytask")}
-                            // defaultValue={[options[0]]}
                             options={options}
                             optionRenderer={renderer}
                             placeholder="Set status"
@@ -377,7 +367,6 @@ const MyTask = () => {
                                       iconType={Icon.type.ICON_FONT}
                                       iconLabel="my font awesome start icon"
                                       icon="fa fa-star"
-                                      // iconSize={2}
                                     />
                                   </span>
                                 </button>
@@ -415,7 +404,6 @@ const MyTask = () => {
                             placeholder="Select a person"
                             optionRenderer={optionRenderer}
                             valueRenderer={valueRenderer}
-                            // isOptionSelected={optionSelected}
                             className="dropdown-stories-styles_with-chips"
                           />
                         </div>
@@ -436,7 +424,6 @@ const MyTask = () => {
                         >
                           <PhoneInput
                             inputProps={{
-                              // name: "phone",
                               required: true,
                               // autoFocus: true,
                             }}
@@ -549,7 +536,6 @@ const MyTask = () => {
                   <div
                     style={{
                       width: "221px",
-                      // height: "40px",
                       marginTop: "7px",
                       marginLeft: "8px",
                       fontSize: "16px",

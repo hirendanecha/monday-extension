@@ -98,12 +98,6 @@ const Home = () => {
         style={{ color: "rgba(255, 204, 0, 0.779)" }}
       />
     </button>
-    // <Icon
-    //   iconType={Icon.type.ICON_FONT}
-    //   iconLabel="my font awesome start icon"
-    //   icon="fa fa-star"
-    //   style={{ color: "color: rgba(255, 204, 0, 0.779);" }}
-    // />
   );
 
   const options = useMemo(
@@ -200,20 +194,23 @@ const Home = () => {
           marginRight: "39px",
         }}
       >
-        <DialogContentContainer
-          style={{
-            width: "548px",
-            height: "auto",
-            boxShadow: "0px 15px 50px rgba(0, 0, 0, 0.3)",
-            position: "relative",
-          }}
-        >
-          <div id={showLoader ? "overlay" : ""}>
-            {showLoader&&<div style={{ position: "absolute", right: "50%", bottom: "50%" }}>
-              <Loader
-                size={40}
-              />
-            </div>}
+        <div>
+          <DialogContentContainer
+            style={{
+              width: "548px",
+              height: "auto",
+              boxShadow: "0px 15px 50px rgba(0, 0, 0, 0.3)",
+              position: "relative",
+            }}
+          >
+            <div id={showLoader ? "overlay" : ""}></div>
+            {showLoader && (
+              <div
+                style={{ position: "absolute", right: "50%", bottom: "50%" }}
+              >
+                <Loader size={40} />
+              </div>
+            )}
             <div
               style={{
                 display: "flex",
@@ -223,13 +220,11 @@ const Home = () => {
                 position: "relative",
               }}
             >
-              {/* <Modal show={true} style={{height:"50px", width:"300px"}} /> */}
               <div>
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   {opentost && (
-                    // <div style={{display:"flex", justifyContent:"center"}}>
                     <AlertBanner
                       backgroundColor={AlertBanner.backgroundColors.POSITIVE}
                       onClose={() => setOpenTost(false)}
@@ -240,21 +235,7 @@ const Home = () => {
                         href="https://monday.com"
                       />
                     </AlertBanner>
-                    // </div>
                   )}
-                  {/* <Toast
-                    open={opentost}
-                    onClose={() => setOpenTost(false)}
-                    // closeable= {false}
-                    // hideIcon={true}
-                    actions={actions}
-                    autoHideDuration={3000}
-                    className="monday-storybook-toast_wrapper"
-                    type={Toast.types.POSITIVE}
-                    // style={{width:"480px"}}
-                  >
-                    Tasked saved!
-                  </Toast> */}
                   <EditableHeading
                     type={EditableHeading.types.h1}
                     placeholder="Write your task name..."
@@ -302,7 +283,6 @@ const Home = () => {
                     content="Select your default task board by searching and marking it with a star"
                     shouldShowOnMount
                     animationType="expand"
-                    // tip={false}
                     data-cy="ddddd"
                     className="monday-style-tooltip-arrow.monday-style-arrow-dar"
                     theme="success"
@@ -310,7 +290,6 @@ const Home = () => {
                     <div
                       style={{
                         width: "221px",
-                        // height: "40px",
                         marginTop: "7px",
                         marginLeft: "8px",
                         fontSize: "16px",
@@ -321,11 +300,9 @@ const Home = () => {
                     >
                       <Dropdown
                         onOptionSelect={() => navigate("/mytask")}
-                        // defaultValue={[options[0]]}
                         openMenuOnFocus={true}
                         options={options}
                         optionRenderer={renderer}
-                        // isOptionSelected={selectedOption}
                         onInputChange={selectedOption}
                         placeholder="My Tasks"
                         className="dropdown-stories-styles_with-chips"
@@ -342,8 +319,8 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </DialogContentContainer>
+          </DialogContentContainer>
+        </div>
       </div>
     </div>
   );

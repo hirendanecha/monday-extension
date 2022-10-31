@@ -15,14 +15,6 @@ button {
 .monday-style-tooltip-arrow.monday-style-arrow-dar {
   background-color: red;
 }
-/* .PhoneInputInput {
-  height: 40px ;
-  width: 372px;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 24px;
-  font-family: "Roboto";
-} */
 .react-tel-input .form-control {
   width: 362px !important;
   height: 40px !important;
