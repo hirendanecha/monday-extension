@@ -20,6 +20,12 @@ import {
   AlertBannerText,
   AlertBannerLink,
   Loader,
+  TabsContext,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Box,
 } from "monday-ui-react-core";
 import {
   MoreActions,
@@ -31,13 +37,25 @@ import {
   Time,
   Update,
   Upgrade,
+  MyWeek,
+  Email,
+  Settings,
 } from "monday-ui-react-core/dist/allIcons";
 import "./home.css";
 import sunimg from "../images/wb_sunny.png";
 import green from "../images/green.png";
 import red from "../images/red.png";
 import violate from "../images/violate.png";
+import taskImage from "../images/Task.png";
+import gmailImage from "../images/Gmail.png";
+import settingImage from "../images/Settings.png";
+import favIcon from "../images/favIcon.png";
+import ssImage from "../images/Screenshot.png";
 import "semantic-ui-css/semantic.min.css";
+import TaskTab from "./Tabs/TaskTab";
+import GmailTab from "./Tabs/GmailTab";
+import ScreenshotTab from "./Tabs/ScreenshotTab";
+import SettingsTab from "./Tabs/SettingsTab";
 
 const Home = () => {
   const [show, setShow] = useState(false);
@@ -85,105 +103,6 @@ const Home = () => {
     []
   );
 
-  const StarIcon = () => (
-    <button>
-      <Icon iconType={Icon.type.ICON_FONT} icon="fa-regular fa-star" />
-    </button>
-  );
-  const StarSolidIcon = () => (
-    <button style={{ color: "rgba(255, 204, 0, 0.779)" }}>
-      <Icon
-        iconType={Icon.type.ICON_FONT}
-        icon="fa-solid fa-star text-red"
-        style={{ color: "rgba(255, 204, 0, 0.779)" }}
-      />
-    </button>
-  );
-
-  const options = useMemo(
-    () => [
-      {
-        id: "1",
-        value: 1,
-        label: "Option 1",
-        regular: StarIcon,
-        fill: StarSolidIcon,
-      },
-      {
-        id: "2",
-        value: 2,
-        label: "Option 2",
-        regular: StarIcon,
-        fill: StarSolidIcon,
-      },
-      {
-        id: "3",
-        value: 3,
-        label: "Option 3",
-        regular: StarIcon,
-        fill: StarSolidIcon,
-      },
-      {
-        id: "4",
-        value: 4,
-        label: "Option 4",
-        regular: StarIcon,
-        fill: StarSolidIcon,
-      },
-      {
-        id: "5",
-        value: 5,
-        label: "Option 5",
-        regular: StarIcon,
-        fill: StarSolidIcon,
-      },
-    ],
-    []
-  );
-
-  const Option = (props) => {
-    const { id, label, regular: Star, fill: SolidStar, selectedId } = props;
-    return (
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        {label}
-        {id === selectedId ? <SolidStar /> : <Star />}
-      </div>
-    );
-  };
-
-  const [selectedId, setSelectedId] = useState("0");
-  const RenderOption = (props) => {
-    const { id } = props;
-    console.log("render", id);
-    return (
-      <div
-        key={id}
-        style={{ width: "100%" }}
-        onMouseOver={() => {
-          console.log("hover", id);
-          setSelectedId(id);
-        }}
-      >
-        <Option {...props} selectedId={selectedId} />
-      </div>
-    );
-  };
-
-  const renderer = (props) => {
-    return <RenderOption {...props} />;
-  };
-
-  const selectedOption = (props) => {
-    console.log(props, "selected option");
-  };
-
   return (
     <div>
       <div
@@ -201,6 +120,8 @@ const Home = () => {
               height: "auto",
               boxShadow: "0px 15px 50px rgba(0, 0, 0, 0.3)",
               position: "relative",
+              padding: "0px",
+              backgroundColor: "#F9FAFB",
             }}
           >
             <div id={showLoader ? "overlay" : ""}></div>
@@ -211,7 +132,90 @@ const Home = () => {
                 <Loader size={40} />
               </div>
             )}
-            <div
+
+            <TabsContext
+              active
+              className="monday-storybook-tabs_bg-color"
+              iconSide="top"
+              iconType="FA"
+              fontSize={29}
+            >
+              <TabList
+                size="lg"
+                style={{
+                  backgroundColor: "rgba(255, 203, 0, 0.1)",
+                }}
+              >
+                <Tab
+                // icon={MyWeek}
+                // iconSide="top"
+                >
+                  <Icon
+                    icon={MyWeek}
+                    style={{
+                      height: "29px",
+                      width: "29px",
+                      color: "#676879",
+                    }}
+                  />
+                  <div style={{ fontSize: "12px", fontWeight: 400 }}>Task</div>
+                </Tab>
+                <Tab>
+                  <Icon
+                    icon={Email}
+                    iconSize={29}
+                    style={{
+                      color: "#676879",
+                    }}
+                  />
+                  <div style={{ fontSize: "12px", fontWeight: 400 }}>Gmail</div>
+                </Tab>
+                <Tab>
+                  <img src={ssImage} alt="Screenshot" height={29} />
+                  <div style={{ fontSize: "12px", fontWeight: 400 }}>
+                    Screenshot
+                  </div>
+                </Tab>
+                <Tab>
+                  <Icon
+                    icon={Settings}
+                    style={{
+                      height: "29px",
+                      width: "29px",
+                      color: "#676879",
+                    }}
+                  />
+                  <div style={{ fontSize: "12px", fontWeight: 400 }}>
+                    Settings
+                  </div>
+                </Tab>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginLeft: "70px",
+                  }}
+                >
+                  <img src={favIcon} alt="favIcon" height={29} width={29} />
+                </div>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <TaskTab />
+                </TabPanel>
+                <TabPanel>
+                  <GmailTab />
+                </TabPanel>
+                <TabPanel>
+                  <ScreenshotTab />
+                </TabPanel>
+                <TabPanel>
+                  <SettingsTab />
+                </TabPanel>
+              </TabPanels>
+            </TabsContext>
+
+            {/* <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -318,7 +322,7 @@ const Home = () => {
                   <Button disabled>Create</Button>
                 </div>
               </div>
-            </div>
+            </div> */}
           </DialogContentContainer>
         </div>
       </div>
