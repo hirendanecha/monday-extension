@@ -55,7 +55,7 @@
   padding-top: 0px !important;
   padding-bottom: 0px !important;
   border: 1px solid #c5c7d0;
-  border-bottom: none;
+  /* border-bottom: none; */
   height: fit-content;
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;

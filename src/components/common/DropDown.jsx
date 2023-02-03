@@ -4,7 +4,7 @@ import { Dropdown } from "monday-ui-react-core";
 const DropDown = ({ val }) => {
   console.log(val, "val");
   const Option = (props) => {
-    const { id, label } = props;
+    const { label } = props;
     return (
       <>
         <div
@@ -12,11 +12,7 @@ const DropDown = ({ val }) => {
             height: "35px",
             display: "flex",
             alignItems: "center",
-            // marginLeft: "-16px",
-            // marginRight: "-16px",
             fontSize: "16px",
-            // borderRight:"1px solid #C5C7D0",
-            // borderLeft:"1px solid #C5C7D0"
           }}
         >
           {label}
@@ -35,13 +31,11 @@ const DropDown = ({ val }) => {
 
   const RenderOption = (props) => {
     const { id } = props;
-    // console.log("render", id);
     return (
       <div
         key={id}
         style={{ width: "100%" }}
         onMouseOver={() => {
-          // console.log("hover", id);
         }}
       >
         <Option {...props} />
@@ -63,7 +57,6 @@ const DropDown = ({ val }) => {
           width: "100%",
           height: "auto",
           marginTop: "-2px",
-          backgroundColor: "#FFFFFF",
           paddingTop: "20px",
         }}
       >
@@ -85,7 +78,6 @@ const DropDown = ({ val }) => {
           size={Dropdown.size.LARGE}
         //   optionRenderer={renderer}
           tooltipContent="Now you can map your Contacts Board, Companies/Accounts Board,Details Board for saving contacts directly from Gmail."
-          // onInputChange={selectedOption}
           insideOverflowWithTransformContainer
           searchable={false}
           placeholder={
