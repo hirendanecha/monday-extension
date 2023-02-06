@@ -2,19 +2,9 @@ import React, { useMemo } from "react";
 import DropDown from "./common/DropDown";
 import { Button } from "monday-ui-react-core";
 import saveIcon from "../images/Save.png";
-import { useState } from "react";
 import TextFieldComponent from "./common/TextFieldComponent";
 
-const ContactBoard = () => {
-  const [show, SetShow] = useState(false);
-
-  const closeModal = () => {
-    SetShow(false);
-  };
-  const openModal = () => {
-    SetShow(true);
-  };
-
+const ContactBoard = ({ openModal }) => {
   const textFieldOptions = [
     {
       id: "1",
@@ -117,57 +107,60 @@ const ContactBoard = () => {
   );
 
   return (
-    <div style={{ position: "relative" }}>
-      <div
-        style={{
-          width: "100%",
-          height: "auto",
-          backgroundColor: "#FFFFFF",
-          borderRadius: "4px",
-          boxShadow: "0px 4px 8px rgba(197, 199, 208, 0.25)",
-          marginTop: "23px",
-          paddingLeft: "20px",
-          paddingRight: "20px",
-          paddingBottom: "27px",
-        }}
-      >
-        {textFieldOptions.map((data) => {
-          return <TextFieldComponent val={data} />;
-        })}
-        {menuOptions.map((menuItem) => {
-          return <DropDown val={menuItem} />;
-        })}
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "23px",
-        }}
-      >
-        <div>
-          <Button kind={Button.kinds.SECONDARY} style={{ width: "68px" }}>
-            Back
-          </Button>
+    <>
+      <div>
+        <div
+          style={{
+            width: "100%",
+            height: "520px",
+            backgroundColor: "#FFFFFF",
+            borderRadius: "4px",
+            boxShadow: "0px 4px 8px rgba(197, 199, 208, 0.25)",
+            marginTop: "23px",
+            paddingLeft: "20px",
+            paddingRight: "20px",
+            paddingBottom: "27px",
+            overflow: "auto",
+          }}
+        >
+          {textFieldOptions.map((data) => {
+            return <TextFieldComponent val={data} />;
+          })}
+          {menuOptions.map((menuItem) => {
+            return <DropDown val={menuItem} />;
+          })}
         </div>
-        <div style={{ marginLeft: "8px" }}>
-          <Button
-            onClick={() => {
-              openModal();
-            }}
-            style={{ backgroundColor: "#FFCB00", color: "#4F4F5E" }}
-          >
-            <img
-              src={saveIcon}
-              alt="Save Icon"
-              style={{ marginRight: "6px" }}
-            />
-            Save
-          </Button>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "23px",
+          }}
+        >
+          <div>
+            <Button kind={Button.kinds.SECONDARY} style={{ width: "68px" }}>
+              Back
+            </Button>
+          </div>
+          <div style={{ marginLeft: "8px" }}>
+            <Button
+              onClick={() => {
+                openModal();
+              }}
+              style={{ backgroundColor: "#FFCB00", color: "#4F4F5E" }}
+            >
+              <img
+                src={saveIcon}
+                alt="Save Icon"
+                style={{ marginRight: "6px" }}
+              />
+              Save
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

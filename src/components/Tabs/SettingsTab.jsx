@@ -13,6 +13,7 @@ import { useState } from "react";
 import ContactBoard from "../ContactBoard";
 import CompaniesBoard from "../CompaniesBoard";
 import DealsBoard from "../DealsBoard";
+import AllDoneModal from "../AllDoneModal";
 
 const SettingsTab = () => {
   const [openGmail, SetOpenGmail] = useState(false);
@@ -21,6 +22,17 @@ const SettingsTab = () => {
   const [openCompaniesBoard, SetOpenCompaniesBoard] = useState(false);
   const [openDealsBoard, SetOpenDealsBoard] = useState(false);
   const [breadCrumb, SetBreadCrumb] = useState("");
+  const [showOverlay, SetShowOverlay] = useState(false);
+  const [show, SetShow] = useState(false);
+
+  const closeModal = () => {
+    SetShow(false);
+    SetShowOverlay(false);
+  };
+  const openModal = () => {
+    SetShow(true);
+    SetShowOverlay(true);
+  };
 
   const toggleHandler = (val) => {
     console.log(val, "toggel val");
@@ -53,22 +65,12 @@ const SettingsTab = () => {
     const { id, label } = props;
     return (
       <>
-        {/* <TextField
-        id={id}
-        placeholder={label}
-        size={TextField.sizes.LARGE}
-        style={{ padding: 0, border: "none" }}
-      /> */}
         <div
           style={{
             height: "35px",
             display: "flex",
             alignItems: "center",
-            // marginLeft: "-16px",
-            // marginRight: "-16px",
             fontSize: "16px",
-            // borderRight:"1px solid #C5C7D0",
-            // borderLeft:"1px solid #C5C7D0"
           }}
         >
           {label}
@@ -131,214 +133,234 @@ const SettingsTab = () => {
     }
   };
 
-  // console.log(openContactBoard, "openContactBoard");
-  // console.log(openCompaniesBoard, "openCompaniesBoard");
-  // console.log(openDealsBoard, "openDealsBoard");
-  // console.log(openOption, "openOption");
-  // console.log(openGmail, "openGmail");
-
   return (
-    <div style={{ padding: "38px", minHeight: "300px" }}>
-      {!openGmail && (
-        <div style={{ marginTop: "18px", height: "48px" }}>
-          <div
-            style={{
-              border: "1px solid #C5C7D0",
-              borderRadius: "4px",
-              height: "48px",
-              display: "flex",
-              alignItems: "center",
-              backgroundColor: "#FFFFFF",
-              boxShadow: "0px 4px 8px rgba(197, 199, 208, 0.25)",
-            }}
-          >
+    <>
+      <div
+        style={{ padding: "38px", minHeight: "300px", position: "relative" }}
+      >
+        <div id={showOverlay ? "overlay" : ""}></div>
+        {!openGmail && (
+          <div style={{ marginTop: "18px", height: "48px" }}>
             <div
               style={{
+                border: "1px solid #C5C7D0",
+                borderRadius: "4px",
+                height: "48px",
                 display: "flex",
                 alignItems: "center",
-                marginLeft: "13px",
+                backgroundColor: "#FFFFFF",
+                boxShadow: "0px 4px 8px rgba(197, 199, 208, 0.25)",
               }}
             >
-              <div>
-                <Toggle
-                  isDefaultSelected={false}
-                  areLabelsHidden
-                  onChange={(value) => toggleHandler(value)}
-                />
-              </div>
               <div
                 style={{
-                  fontWeight: 400,
-                  fontFamily: "Roboto",
-                  fontSize: "16px",
-                  color: "#676879",
+                  display: "flex",
+                  alignItems: "center",
+                  marginLeft: "13px",
                 }}
               >
-                Offsite for Gmail
+                <div>
+                  <Toggle
+                    isDefaultSelected={false}
+                    areLabelsHidden
+                    onChange={(value) => toggleHandler(value)}
+                  />
+                </div>
+                <div
+                  style={{
+                    fontWeight: 400,
+                    fontFamily: "Roboto",
+                    fontSize: "16px",
+                    color: "#676879",
+                  }}
+                >
+                  Offsite for Gmail
+                </div>
+              </div>
+            </div>
+
+            <div
+              style={{
+                border: "1px solid #C5C7D0",
+                borderRadius: "4px",
+                height: "48px",
+                display: "flex",
+                alignItems: "center",
+                backgroundColor: "#FFFFFF",
+                boxShadow: "0px 4px 8px rgba(197, 199, 208, 0.25)",
+                marginTop: "15px",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginLeft: "13px",
+                }}
+              >
+                <div>
+                  <Toggle isDefaultSelected={false} areLabelsHidden />
+                </div>
+                <div
+                  style={{
+                    fontWeight: 400,
+                    fontFamily: "Roboto",
+                    fontSize: "16px",
+                    color: "#676879",
+                  }}
+                >
+                  Offsite for Linkedin
+                </div>
               </div>
             </div>
           </div>
+        )}
 
-          <div
-            style={{
-              border: "1px solid #C5C7D0",
-              borderRadius: "4px",
-              height: "48px",
-              display: "flex",
-              alignItems: "center",
-              backgroundColor: "#FFFFFF",
-              boxShadow: "0px 4px 8px rgba(197, 199, 208, 0.25)",
-              marginTop: "15px",
-            }}
-          >
+        {openGmail && (
+          <div>
+            {breadCrumb && (
+              <div style={{ marginTop: "-10px" }}>
+                <BreadcrumbsBar type={BreadcrumbsBar.types.INDICATION}>
+                  <BreadcrumbItem
+                    text={
+                      <span
+                        style={{
+                          fontSize: "16px",
+                          fontWeight: 400,
+                          color: "#676879",
+                          fontFamily: "Roboto",
+                        }}
+                      >
+                        Gmail CRM Settings
+                      </span>
+                    }
+                  />
+                  <BreadcrumbItem
+                    text={
+                      <span
+                        style={{
+                          fontSize: "16px",
+                          fontWeight: 400,
+                          color: "#676879",
+                          fontFamily: "Roboto",
+                        }}
+                      >
+                        {breadCrumb}
+                      </span>
+                    }
+                  />
+                </BreadcrumbsBar>
+
+                <div
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: 700,
+                    color: "#323338",
+                    fontFamily: "Roboto",
+                    marginTop: "16px",
+                    marginBottom: "24px",
+                  }}
+                >
+                  Now you can map your Contacts Board, Companies/
+                  <br />
+                  Accounts Board, Details Board for saving contacts directly{" "}
+                  <br />
+                  from Gmail.
+                </div>
+              </div>
+            )}
+
             <div
               style={{
-                display: "flex",
-                alignItems: "center",
-                marginLeft: "13px",
+                width: "100%",
+                height: "auto",
+                marginTop: "-2px",
+                backgroundColor: "#FFFFFF",
               }}
             >
-              <div>
-                <Toggle isDefaultSelected={false} areLabelsHidden />
-              </div>
-              <div
-                style={{
-                  fontWeight: 400,
-                  fontFamily: "Roboto",
-                  fontSize: "16px",
-                  color: "#676879",
-                }}
-              >
-                Offsite for Linkedin
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {openGmail && (
-        <div>
-          {breadCrumb && (
-            <div style={{ marginTop: "-10px" }}>
-              <BreadcrumbsBar type={BreadcrumbsBar.types.INDICATION}>
-                <BreadcrumbItem
-                  text={
-                    <span
-                      style={{
-                        fontSize: "16px",
-                        fontWeight: 400,
-                        color: "#676879",
-                        fontFamily: "Roboto",
-                      }}
-                    >
-                      Gmail CRM Settings
-                    </span>
-                  }
-                />
-                <BreadcrumbItem
-                  text={
-                    <span
-                      style={{
-                        fontSize: "16px",
-                        fontWeight: 400,
-                        color: "#676879",
-                        fontFamily: "Roboto",
-                      }}
-                    >
-                      {breadCrumb}
-                    </span>
-                  }
-                />
-              </BreadcrumbsBar>
-
-              <div
-                style={{
-                  fontSize: "16px",
-                  fontWeight: 700,
-                  color: "#323338",
-                  fontFamily: "Roboto",
-                  marginTop: "16px",
-                  marginBottom: "24px",
-                }}
-              >
-                Now you can map your Contacts Board, Companies/
-                <br />
-                Accounts Board, Details Board for saving contacts directly{" "}
-                <br />
-                from Gmail.
-              </div>
-            </div>
-          )}
-
-          <div
-            style={{
-              width: "100%",
-              height: "auto",
-              marginTop: "-2px",
-              backgroundColor: "#FFFFFF",
-            }}
-          >
-            <Dropdown
-              onOptionSelect={(val) => optionSelectHandler(val)}
-              openMenuOnFocus={true}
-              options={options}
-              size={Dropdown.size.LARGE}
-              optionRenderer={renderer}
-              tooltipContent="Now you can map your Contacts Board, Companies/Accounts Board,Details Board for saving contacts directly from Gmail."
-              // onInputChange={selectedOption}
-              insideOverflowWithTransformContainer
-              searchable={false}
-              placeholder={
-                <Tooltip
-                  position="bottom"
-                  justify="end"
-                  content="Now you can map your Contacts Board, 
+              <Dropdown
+                onOptionSelect={(val) => optionSelectHandler(val)}
+                openMenuOnFocus={true}
+                options={options}
+                size={Dropdown.size.LARGE}
+                optionRenderer={renderer}
+                tooltipContent="Now you can map your Contacts Board, Companies/Accounts Board,Details Board for saving contacts directly from Gmail."
+                // onInputChange={selectedOption}
+                insideOverflowWithTransformContainer
+                searchable={false}
+                placeholder={
+                  <Tooltip
+                    position="bottom"
+                    justify="end"
+                    content="Now you can map your Contacts Board, 
                       Companies/Accounts Board, 
                       Details Board for saving contacts directly from Gmail."
-                  shouldShowOnMount
-                  animationType="expand"
-                  data-cy="ddddd"
-                  className="monday-style-tooltip-arrow.monday-style-arrow-dar"
-                  theme="success"
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      height: "48px",
-                      width: "100%",
-                    }}
+                    shouldShowOnMount
+                    animationType="expand"
+                    data-cy="ddddd"
+                    className="monday-style-tooltip-arrow.monday-style-arrow-dar"
+                    theme="success"
                   >
-                    <Toggle
-                      areLabelsHidden
-                      onChange={(value) => toggleHandler(value)}
-                    />
                     <div
                       style={{
-                        fontWeight: 400,
-                        fontFamily: "Roboto",
-                        fontSize: "16px",
-                        color: "#676879",
+                        display: "flex",
+                        alignItems: "center",
+                        height: "48px",
                         width: "100%",
                       }}
                     >
-                      Offsite for Gmail
+                      <Toggle
+                        areLabelsHidden
+                        onChange={(value) => toggleHandler(value)}
+                      />
+                      <div
+                        style={{
+                          fontWeight: 400,
+                          fontFamily: "Roboto",
+                          fontSize: "16px",
+                          color: "#676879",
+                          width: "100%",
+                        }}
+                      >
+                        Offsite for Gmail
+                      </div>
                     </div>
-                  </div>
-                </Tooltip>
-              }
-              className="dropdown-stories-styles_with-chips"
-              noOptionsMessage={() =>
-                "No board found. You can create a new board in monday.com"
-              }
+                  </Tooltip>
+                }
+                className="dropdown-stories-styles_with-chips"
+                noOptionsMessage={() =>
+                  "No board found. You can create a new board in monday.com"
+                }
+              />
+            </div>
+          </div>
+        )}
+        {openContactBoard && (
+          <ContactBoard
+            showOverlay={showOverlay}
+            SetShowOverlay={SetShowOverlay}
+            show={show}
+            SetShow={SetShow}
+            openModal={openModal}
+            closeModal={closeModal}
+          />
+        )}
+        {openCompaniesBoard && <CompaniesBoard />}
+        {openDealsBoard && <DealsBoard />}
+        {show && (
+          <div
+            style={{ position: "absolute", top: "25%", left: "17%", zIndex: 2 }}
+          >
+            <AllDoneModal
+              show={show}
+              SetShow={SetShow}
+              openModal={openModal}
+              closeModal={closeModal}
             />
           </div>
-        </div>
-      )}
-      {openContactBoard && <ContactBoard />}
-      {openCompaniesBoard && <CompaniesBoard />}
-      {openDealsBoard && <DealsBoard />}
-    </div>
+        )}
+      </div>
+    </>
   );
 };
 
