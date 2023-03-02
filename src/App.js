@@ -2,6 +2,8 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import AddDeal from "./components/google/AddDeal";
 import AddDealNew from "./components/google/AddDealNew";
+import MyTask from "./components/google/MyTask";
+import MyTasks from "./components/google/MyTasks";
 import SaveContact from "./components/google/SaveContact";
 import SaveContactNew from "./components/google/SaveContactNew";
 import SaveGmailScreen from "./components/google/SaveGmailScreen";
@@ -19,6 +21,9 @@ const App = () => {
         <Route path="/googleAddDeal" element={<AddDeal />} />
         <Route path="/googleAddDealNew" element={<AddDealNew />} />
         <Route path="/saveGmail" element={<SaveGmailScreen />} />
+        <Route path="/saveGmail" element={<SaveGmailScreen />} />
+        <Route path="/MyTask" element={<MyTask />} />
+        <Route path="/MyTasks" element={<MyTasks />} />
       </Routes>
     </div>
   );
