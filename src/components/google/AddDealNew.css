@@ -24,6 +24,37 @@
   color: #323338;
 }
 
+.value_css {
+  margin: 4px;
+  font-family: "Roboto";
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 24px;
+  width: 100px;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  white-space: nowrap;
+
+  cursor: pointer;
+  text-decoration: none;
+  border: 0px;
+  padding: 0px;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
+.value_css_btn {
+  color: white;
+  width: 1em;
+  background: rgba(0, 0, 0, 0.26);
+  border-radius: 15px;
+  justify-content: center;
+  display: flex;
+}
+
 .copy-link-button {
   flex-shrink: 0;
   border: 1px solid #c3c6d4;

@@ -1,13 +1,4 @@
 import React, { useMemo, useRef, useState } from "react";
-import { DialogContentContainer, Icon, Button } from "monday-ui-react-core";
-import {
-  CloseSmall,
-  MoveArrowLeft,
-  PersonRound,
-  Person,
-  Wand,
-} from "monday-ui-react-core/dist/allIcons";
-import { Avatar } from "monday-ui-react-core";
 import favIcon from "../../images/favIcon.png";
 import "./AddDealNew.css";
 import LoadingScreen from "./LoadingScreen";
@@ -22,6 +13,11 @@ import CopyLinkIcon from "../icons/CopyLinkIcon";
 import EmailIcon from "../icons/EmailIcon";
 import DropdownChevronUp from "../icons/DropdownChevronUp";
 import MoreActions from "../icons/MoreActions";
+import MoveArrowLeft from "../icons/MoveArrowLeft";
+import CloseSmall from "../icons/CloseSmall";
+import PersonRound from "../icons/PersonRound";
+import Wand from "../icons/Wand";
+import Person from "../icons/Person";
 
 const AddDealNew = () => {
   const [loading, SetLoading] = useState(false);
@@ -39,6 +35,209 @@ const AddDealNew = () => {
   const [fieldValue, setFieldValue] = useState("My first task here Yay!");
   const navigate = useNavigate();
   const inputRef = useRef(null);
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [personSelectedOptions, setPersonSelectedOptions] = useState([]);
+  const [tasksSelectedOptions, setTasksSelectedOptions] = useState([]);
+  const [personOptions, setPersonOptions] = useState([
+    {
+      id: "1",
+      value: "hadasfarhi",
+      label: "Hadas Farhi",
+      src: <Wand />,
+      leftIcon: <Wand />,
+      // type: Avatar.types.IMG,
+      // size: Avatar.sizes.SMALL,
+    },
+    {
+      id: "2",
+      value: "rotemdekel",
+      label: "Rotem Dekel",
+      src: <PersonRound />,
+      leftIcon: <PersonRound />,
+      // type: Avatar.types.IMG,
+      // size: Avatar.sizes.SMALL,
+    },
+    {
+      id: "3",
+      value: "nettamuller",
+      label: "Netta Muller",
+      src: <Person />,
+      leftIcon: <Person />,
+      // type: Avatar.types.IMG,
+      // size: Avatar.sizes.SMALL,
+    },
+  ]);
+  const [options, setOptions] = useState([
+    {
+      id: "1",
+      value: "lead",
+      label: "Lead",
+      leftIcon: red,
+    },
+    {
+      id: "2",
+      value: "inprogress",
+      label: "In progress",
+      leftIcon: violate,
+    },
+    {
+      id: "3",
+      value: "done",
+      label: "Done",
+      leftIcon: green,
+    },
+  ]);
+
+  const [taskOptions, setTaskOptions] = useState([
+    {
+      label: "Option 1",
+      value: "option1",
+    },
+    {
+      label: "Option 2",
+      value: "option2",
+    },
+    {
+      label: "Option 3",
+      value: "option3",
+    },
+  ]);
+
+  const handleOptionSelect = (event, index) => {
+    const selectedOptionValue = event.target.value;
+    if (index === 1) {
+      const selectedOption = options.find(
+        (option) => option.value === selectedOptionValue
+      );
+      if (selectedOption) {
+        setSelectedOptions([...selectedOptions, selectedOption]);
+      }
+    } else if (index === 2) {
+      const selectedOption = personOptions.find(
+        (option) => option.value === selectedOptionValue
+      );
+      if (selectedOption) {
+        setPersonSelectedOptions([...personSelectedOptions, selectedOption]);
+      }
+    } else {
+      const selectedOption = taskOptions.find(
+        (option) => option.value === selectedOptionValue
+      );
+      if (selectedOption) {
+        setTasksSelectedOptions([...tasksSelectedOptions, selectedOption]);
+      }
+    }
+  };
+
+  const handleOptionRemove = (optionValue, index) => {
+    if (index === 1) {
+      const newSelectedOptions = selectedOptions.filter(
+        (option) => option.value !== optionValue
+      );
+      setSelectedOptions(newSelectedOptions);
+    } else if (index === 2) {
+      const newSelectedOptions = personSelectedOptions.filter(
+        (option) => option.value !== optionValue
+      );
+      setPersonSelectedOptions(newSelectedOptions);
+    } else {
+      const newSelectedOptions = tasksSelectedOptions.filter(
+        (option) => option.value !== optionValue
+      );
+      setTasksSelectedOptions(newSelectedOptions);
+    }
+  };
+
+  const handleSearch = (event, index) => {
+    if (index === 1) {
+      const searchTerm = event.target.value;
+      if (searchTerm.trim()) {
+        const filteredOptions = options.filter((option) =>
+          option.label.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setOptions(filteredOptions);
+      } else {
+        setOptions([
+          {
+            id: "1",
+            value: "lead",
+            label: "Lead",
+            leftIcon: red,
+          },
+          {
+            id: "2",
+            value: "inprogress",
+            label: "In progress",
+            leftIcon: violate,
+          },
+          {
+            id: "3",
+            value: "done",
+            label: "Done",
+            leftIcon: green,
+          },
+        ]);
+      }
+    } else if (index === 2) {
+      const searchTerm = event.target.value;
+      if (searchTerm.trim()) {
+        const filteredOptions = personOptions.filter((option) =>
+          option.label.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setPersonOptions(filteredOptions);
+      } else {
+        setPersonOptions([
+          {
+            id: "1",
+            value: "lead",
+            label: "Lead",
+            leftIcon: red,
+          },
+          {
+            id: "2",
+            value: "inprogress",
+            label: "In progress",
+            leftIcon: violate,
+          },
+          {
+            id: "3",
+            value: "done",
+            label: "Done",
+            leftIcon: green,
+          },
+        ]);
+      }
+    } else {
+      const searchTerm = event.target.value;
+      if (searchTerm.trim()) {
+        const filteredOptions = taskOptions.filter((option) =>
+          option.label.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setTaskOptions(filteredOptions);
+      } else {
+        setTaskOptions([
+          {
+            id: "1",
+            value: "lead",
+            label: "Lead",
+            leftIcon: red,
+          },
+          {
+            id: "2",
+            value: "inprogress",
+            label: "In progress",
+            leftIcon: violate,
+          },
+          {
+            id: "3",
+            value: "done",
+            label: "Done",
+            leftIcon: green,
+          },
+        ]);
+      }
+    }
+  };
 
   const labelStyle = {
     fontSize: "16px",
@@ -60,63 +259,6 @@ const AddDealNew = () => {
       },
     });
   };
-
-  const options = useMemo(
-    () => [
-      {
-        id: "1",
-        value: 1,
-        label: "Lead",
-        leftIcon: red,
-      },
-      {
-        id: "2",
-        value: 2,
-        label: "In progress",
-        leftIcon: violate,
-      },
-      {
-        id: "3",
-        value: 3,
-        label: "Done",
-        leftIcon: green,
-      },
-    ],
-    []
-  );
-
-  const options1 = useMemo(
-    () => [
-      {
-        id: "1",
-        value: "Dor Yehuda",
-        label: "Hadas Farhi",
-        src: Wand,
-        leftIcon: Wand,
-        type: Avatar.types.IMG,
-        size: Avatar.sizes.SMALL,
-      },
-      {
-        id: "2",
-        value: "No",
-        label: "Rotem Dekel",
-        src: PersonRound,
-        leftIcon: PersonRound,
-        type: Avatar.types.IMG,
-        size: Avatar.sizes.SMALL,
-      },
-      {
-        id: "3",
-        value: "Yes",
-        label: "Netta Muller",
-        src: Person,
-        leftIcon: Person,
-        type: Avatar.types.IMG,
-        size: Avatar.sizes.SMALL,
-      },
-    ],
-    []
-  );
 
   const optionsNew = [
     {
@@ -151,7 +293,7 @@ const AddDealNew = () => {
       >
         <div>
           {!loading && (
-            <DialogContentContainer
+            <div
               style={{
                 width: "400px",
                 height: "auto",
@@ -178,11 +320,9 @@ const AddDealNew = () => {
                   }}
                 >
                   <div style={{ marginLeft: "22px", color: "#676879" }}>
-                    <Icon
-                      icon={MoveArrowLeft}
-                      iconLabel="my MoveArrowLeft icon"
-                      iconSize={27}
-                    />
+                    <button>
+                      <MoveArrowLeft />
+                    </button>
                   </div>
                   <div style={{ textAlign: "center" }}>
                     <img src={favIcon} alt="favIcon" />
@@ -194,11 +334,9 @@ const AddDealNew = () => {
                       color: "#676879",
                     }}
                   >
-                    <Icon
-                      icon={CloseSmall}
-                      iconLabel="my CloseSmall icon"
-                      iconSize={27}
-                    />
+                    <button>
+                      <CloseSmall />
+                    </button>
                   </div>
                 </div>
               </header>
@@ -350,31 +488,60 @@ const AddDealNew = () => {
                                   </div>
                                 </div>
 
-                                <div className="box_wrapper">
+                                <div className="box_wrapper" id="myDropdown">
                                   <label style={labelStyle}>Status</label>
-
-                                  <div className={"dropdown_wrapper_stories"}>
-                                    <div className="dropdown_placeholder">
-                                      <select className="input_component box_style">
-                                        <option
-                                          value=""
-                                          disabled
-                                          selected
-                                          hidden
-                                        >
-                                          Set status
-                                        </option>
-                                        {options.map((option) => (
-                                          <option
-                                            key={option.value}
-                                            value={option.value}
+                                  <div
+                                    className="input_component box_style"
+                                    style={{ height: "100%" }}
+                                  >
+                                    {selectedOptions.map((option) => (
+                                      <div className="value_css">
+                                        <>
+                                          <span> {option.label} </span>
+                                          <button
+                                            className="value_css_btn"
+                                            type="button"
+                                            onClick={() =>
+                                              handleOptionRemove(
+                                                option.value,
+                                                1
+                                              )
+                                            }
                                           >
-                                            {option.label}
-                                          </option>
-                                        ))}
-                                      </select>
-                                    </div>
+                                            x
+                                          </button>
+                                        </>
+                                      </div>
+                                    ))}
+
+                                    <input
+                                      type="text"
+                                      placeholder="Set Status"
+                                      onChange={(e) => handleSearch(e, 1)}
+                                      style={{
+                                        border: "none",
+                                        borderBottom: "1px solid black",
+                                      }}
+                                    />
                                   </div>
+                                  <br />
+                                  <select
+                                    multiple
+                                    value={selectedOptions.map(
+                                      (option) => option.value
+                                    )}
+                                    onChange={(e) => handleOptionSelect(e, 1)}
+                                  >
+                                    {options &&
+                                      options.map((option) => (
+                                        <option
+                                          key={option.value}
+                                          value={option.value}
+                                        >
+                                          {option.label}
+                                        </option>
+                                      ))}
+                                  </select>
                                 </div>
 
                                 <div className="box_wrapper">
@@ -429,31 +596,60 @@ const AddDealNew = () => {
                                   </div>
                                 </div>
 
-                                <div className="box_wrapper">
+                                <div className="box_wrapper" id="myDropdown">
                                   <label style={labelStyle}>Person</label>
-
-                                  <div className={"dropdown_wrapper_stories"}>
-                                    <div className="dropdown_placeholder">
-                                      <select className="input_component box_style">
-                                        <option
-                                          value=""
-                                          disabled
-                                          selected
-                                          hidden
-                                        >
-                                          Select a person
-                                        </option>
-                                        {options1.map((option) => (
-                                          <option
-                                            key={option.value}
-                                            value={option.value}
+                                  <div
+                                    className="input_component box_style"
+                                    style={{ height: "100%" }}
+                                  >
+                                    {personSelectedOptions.map((option) => (
+                                      <div className="value_css">
+                                        <>
+                                          <span> {option.label} </span>
+                                          <button
+                                            className="value_css_btn"
+                                            type="button"
+                                            onClick={() =>
+                                              handleOptionRemove(
+                                                option.value,
+                                                2
+                                              )
+                                            }
                                           >
-                                            {option.label}
-                                          </option>
-                                        ))}
-                                      </select>
-                                    </div>
+                                            x
+                                          </button>
+                                        </>
+                                      </div>
+                                    ))}
+
+                                    <input
+                                      type="text"
+                                      placeholder="Select a person"
+                                      onChange={(e) => handleSearch(e, 2)}
+                                      style={{
+                                        border: "none",
+                                        borderBottom: "1px solid black",
+                                      }}
+                                    />
                                   </div>
+                                  <br />
+                                  <select
+                                    multiple
+                                    value={personSelectedOptions.map(
+                                      (option) => option.value
+                                    )}
+                                    onChange={(e) => handleOptionSelect(e, 2)}
+                                  >
+                                    {personOptions &&
+                                      personOptions.map((option) => (
+                                        <option
+                                          key={option.value}
+                                          value={option.value}
+                                        >
+                                          {option.label}
+                                        </option>
+                                      ))}
+                                  </select>
                                 </div>
 
                                 <div className="box_wrapper">
@@ -533,24 +729,55 @@ const AddDealNew = () => {
                                 style={{ margin: "0 auto" }}
                               >
                                 <label style={labelStyle}>in</label>
-
-                                <div className={"dropdown_wrapper_stories"}>
-                                  <div className="dropdown_placeholder">
-                                    <select className="input_component box_style">
-                                      <option value="" disabled selected hidden>
-                                        My Tasks
-                                      </option>
-                                      {optionsNew.map((option) => (
-                                        <option
-                                          key={option.value}
-                                          value={option.value}
+                                <div
+                                  className="input_component box_style"
+                                  style={{ height: "100%" }}
+                                >
+                                  {tasksSelectedOptions.map((option) => (
+                                    <div className="value_css">
+                                      <>
+                                        <span> {option.label} </span>
+                                        <button
+                                          className="value_css_btn"
+                                          type="button"
+                                          onClick={() =>
+                                            handleOptionRemove(option.value, 3)
+                                          }
                                         >
-                                          {option.label}
-                                        </option>
-                                      ))}
-                                    </select>
-                                  </div>
+                                          x
+                                        </button>
+                                      </>
+                                    </div>
+                                  ))}
+
+                                  <input
+                                    type="text"
+                                    placeholder="My Tasks"
+                                    onChange={(e) => handleSearch(e, 3)}
+                                    style={{
+                                      border: "none",
+                                      borderBottom: "1px solid black",
+                                    }}
+                                  />
                                 </div>
+                                <br />
+                                <select
+                                  multiple
+                                  value={tasksSelectedOptions.map(
+                                    (option) => option.value
+                                  )}
+                                  onChange={(e) => handleOptionSelect(e, 3)}
+                                >
+                                  {taskOptions &&
+                                    taskOptions.map((option) => (
+                                      <option
+                                        key={option.value}
+                                        value={option.value}
+                                      >
+                                        {option.label}
+                                      </option>
+                                    ))}
+                                </select>
                               </div>
                             </div>
 
@@ -561,17 +788,18 @@ const AddDealNew = () => {
                                 marginTop: "24px",
                               }}
                             >
-                              <Button
+                              <button
                                 onClick={(event) => handleSubmit(event)}
                                 style={{
                                   padding: "8px 16px",
                                   height: "40px",
                                   background: "#0073ea",
                                   color: "white",
+                                  borderRadius: "4px",
                                 }}
                               >
                                 Create
-                              </Button>
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -580,7 +808,7 @@ const AddDealNew = () => {
                   </div>
                 </div>
               </div>
-            </DialogContentContainer>
+            </div>
           )}
           {loading && <LoadingScreen />}
         </div>
