@@ -58,6 +58,6 @@ button {
   background-color: red;
 }
 .react-tel-input .form-control {
-  width: 362px !important;
+  width: 100% !important;
   height: 40px !important;
 }
