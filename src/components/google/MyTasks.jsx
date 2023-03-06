@@ -45,12 +45,12 @@ import {
 // import PhoneInput from "react-phone-number-input";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import sunimg from "../images/wb_sunny.png";
-import green from "../images/green.png";
-import red from "../images/red.png";
-import violate from "../images/violate.png";
+import sunimg from "../../images/wb_sunny.png";
+import green from "../../images/green.png";
+import red from "../../images/red.png";
+import violate from "../../images/violate.png";
 
-const MyTask = () => {
+const MyTasks = () => {
   const [show, setShow] = useState(false);
   const [description, setDescription] = useState("");
   const [file, setFile] = useState("");
@@ -596,4 +596,4 @@ const MyTask = () => {
   );
 };
 
-export default MyTask;
+export default MyTasks;

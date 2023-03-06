@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "monday-ui-react-core/dist/main.css";
-import { Heading, Button, DialogContentContainer } from "monday-ui-react-core";
+import { Heading, Button } from "monday-ui-react-core";
 import sunimg from "../images/wb_sunny.png";
-import btmimg from "../images/image 2.png";
+import btmimg from "../images/MondayIcon.png";
 
 const InstallPage = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const InstallPage = () => {
       >
         <div style={{ width: "548px", height: "329px", textAlign: "center" }}>
           <div>
-            <img height={"80px"} width={"80px"} src={sunimg} alt="sun-image" />
+            <img height={"80px"} width={"80px"} src={sunimg} alt="sun" />
           </div>
           <Heading
             type={Heading.types.h4}
