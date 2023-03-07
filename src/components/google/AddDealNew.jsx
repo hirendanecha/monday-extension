@@ -18,6 +18,7 @@ import CloseSmall from "../icons/CloseSmall";
 import PersonRound from "../icons/PersonRound";
 import Wand from "../icons/Wand";
 import Person from "../icons/Person";
+import Select from "./Select"
 
 const AddDealNew = () => {
   const [loading, SetLoading] = useState(false);
@@ -35,13 +36,10 @@ const AddDealNew = () => {
   const [fieldValue, setFieldValue] = useState("My first task here Yay!");
   const navigate = useNavigate();
   const inputRef = useRef(null);
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  const [personSelectedOptions, setPersonSelectedOptions] = useState([]);
-  const [tasksSelectedOptions, setTasksSelectedOptions] = useState([]);
   const [personOptions, setPersonOptions] = useState([
     {
       id: "1",
-      value: "hadasfarhi",
+      value: "Hadas Farhi",
       label: "Hadas Farhi",
       src: <Wand />,
       leftIcon: <Wand />,
@@ -50,7 +48,7 @@ const AddDealNew = () => {
     },
     {
       id: "2",
-      value: "rotemdekel",
+      value: "Rotem Dekel",
       label: "Rotem Dekel",
       src: <PersonRound />,
       leftIcon: <PersonRound />,
@@ -59,7 +57,7 @@ const AddDealNew = () => {
     },
     {
       id: "3",
-      value: "nettamuller",
+      value: "Netta Muller",
       label: "Netta Muller",
       src: <Person />,
       leftIcon: <Person />,
@@ -70,19 +68,19 @@ const AddDealNew = () => {
   const [options, setOptions] = useState([
     {
       id: "1",
-      value: "lead",
+      value: "Lead",
       label: "Lead",
       leftIcon: red,
     },
     {
       id: "2",
-      value: "inprogress",
+      value: "In progress",
       label: "In progress",
       leftIcon: violate,
     },
     {
       id: "3",
-      value: "done",
+      value: "Done",
       label: "Done",
       leftIcon: green,
     },
@@ -91,153 +89,17 @@ const AddDealNew = () => {
   const [taskOptions, setTaskOptions] = useState([
     {
       label: "Option 1",
-      value: "option1",
+      value: "Option 1",
     },
     {
       label: "Option 2",
-      value: "option2",
+      value: "Option 2",
     },
     {
       label: "Option 3",
-      value: "option3",
+      value: "Option 3",
     },
   ]);
-
-  const handleOptionSelect = (event, index) => {
-    const selectedOptionValue = event.target.value;
-    if (index === 1) {
-      const selectedOption = options.find(
-        (option) => option.value === selectedOptionValue
-      );
-      if (selectedOption) {
-        setSelectedOptions([...selectedOptions, selectedOption]);
-      }
-    } else if (index === 2) {
-      const selectedOption = personOptions.find(
-        (option) => option.value === selectedOptionValue
-      );
-      if (selectedOption) {
-        setPersonSelectedOptions([...personSelectedOptions, selectedOption]);
-      }
-    } else {
-      const selectedOption = taskOptions.find(
-        (option) => option.value === selectedOptionValue
-      );
-      if (selectedOption) {
-        setTasksSelectedOptions([...tasksSelectedOptions, selectedOption]);
-      }
-    }
-  };
-
-  const handleOptionRemove = (optionValue, index) => {
-    if (index === 1) {
-      const newSelectedOptions = selectedOptions.filter(
-        (option) => option.value !== optionValue
-      );
-      setSelectedOptions(newSelectedOptions);
-    } else if (index === 2) {
-      const newSelectedOptions = personSelectedOptions.filter(
-        (option) => option.value !== optionValue
-      );
-      setPersonSelectedOptions(newSelectedOptions);
-    } else {
-      const newSelectedOptions = tasksSelectedOptions.filter(
-        (option) => option.value !== optionValue
-      );
-      setTasksSelectedOptions(newSelectedOptions);
-    }
-  };
-
-  const handleSearch = (event, index) => {
-    if (index === 1) {
-      const searchTerm = event.target.value;
-      if (searchTerm.trim()) {
-        const filteredOptions = options.filter((option) =>
-          option.label.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setOptions(filteredOptions);
-      } else {
-        setOptions([
-          {
-            id: "1",
-            value: "lead",
-            label: "Lead",
-            leftIcon: red,
-          },
-          {
-            id: "2",
-            value: "inprogress",
-            label: "In progress",
-            leftIcon: violate,
-          },
-          {
-            id: "3",
-            value: "done",
-            label: "Done",
-            leftIcon: green,
-          },
-        ]);
-      }
-    } else if (index === 2) {
-      const searchTerm = event.target.value;
-      if (searchTerm.trim()) {
-        const filteredOptions = personOptions.filter((option) =>
-          option.label.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setPersonOptions(filteredOptions);
-      } else {
-        setPersonOptions([
-          {
-            id: "1",
-            value: "lead",
-            label: "Lead",
-            leftIcon: red,
-          },
-          {
-            id: "2",
-            value: "inprogress",
-            label: "In progress",
-            leftIcon: violate,
-          },
-          {
-            id: "3",
-            value: "done",
-            label: "Done",
-            leftIcon: green,
-          },
-        ]);
-      }
-    } else {
-      const searchTerm = event.target.value;
-      if (searchTerm.trim()) {
-        const filteredOptions = taskOptions.filter((option) =>
-          option.label.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setTaskOptions(filteredOptions);
-      } else {
-        setTaskOptions([
-          {
-            id: "1",
-            value: "lead",
-            label: "Lead",
-            leftIcon: red,
-          },
-          {
-            id: "2",
-            value: "inprogress",
-            label: "In progress",
-            leftIcon: violate,
-          },
-          {
-            id: "3",
-            value: "done",
-            label: "Done",
-            leftIcon: green,
-          },
-        ]);
-      }
-    }
-  };
 
   const labelStyle = {
     fontSize: "16px",
@@ -259,21 +121,6 @@ const AddDealNew = () => {
       },
     });
   };
-
-  const optionsNew = [
-    {
-      label: "Option 1",
-      value: 1,
-    },
-    {
-      label: "Option 2",
-      value: 2,
-    },
-    {
-      label: "Option 3",
-      value: 3,
-    },
-  ];
 
   const copyToClipboard = () => {
     inputRef.current.select();
@@ -490,58 +337,7 @@ const AddDealNew = () => {
 
                                 <div className="box_wrapper" id="myDropdown">
                                   <label style={labelStyle}>Status</label>
-                                  <div
-                                    className="input_component box_style"
-                                    style={{ height: "100%" }}
-                                  >
-                                    {selectedOptions.map((option) => (
-                                      <div className="value_css">
-                                        <>
-                                          <span> {option.label} </span>
-                                          <button
-                                            className="value_css_btn"
-                                            type="button"
-                                            onClick={() =>
-                                              handleOptionRemove(
-                                                option.value,
-                                                1
-                                              )
-                                            }
-                                          >
-                                            x
-                                          </button>
-                                        </>
-                                      </div>
-                                    ))}
-
-                                    <input
-                                      type="text"
-                                      placeholder="Set Status"
-                                      onChange={(e) => handleSearch(e, 1)}
-                                      style={{
-                                        border: "none",
-                                        borderBottom: "1px solid black",
-                                      }}
-                                    />
-                                  </div>
-                                  <br />
-                                  <select
-                                    multiple
-                                    value={selectedOptions.map(
-                                      (option) => option.value
-                                    )}
-                                    onChange={(e) => handleOptionSelect(e, 1)}
-                                  >
-                                    {options &&
-                                      options.map((option) => (
-                                        <option
-                                          key={option.value}
-                                          value={option.value}
-                                        >
-                                          {option.label}
-                                        </option>
-                                      ))}
-                                  </select>
+                                  <Select options={options} Placeholder={"Status"} id={"1"} />
                                 </div>
 
                                 <div className="box_wrapper">
@@ -568,8 +364,8 @@ const AddDealNew = () => {
                                                 : "off"
                                             }
                                             onClick={() => setRating(index)}
-                                            // onMouseEnter={() => setHover(index)}
-                                            // onMouseLeave={() => setHover(rating)}
+                                          // onMouseEnter={() => setHover(index)}
+                                          // onMouseLeave={() => setHover(rating)}
                                           >
                                             <span
                                               className="star"
@@ -598,58 +394,7 @@ const AddDealNew = () => {
 
                                 <div className="box_wrapper" id="myDropdown">
                                   <label style={labelStyle}>Person</label>
-                                  <div
-                                    className="input_component box_style"
-                                    style={{ height: "100%" }}
-                                  >
-                                    {personSelectedOptions.map((option) => (
-                                      <div className="value_css">
-                                        <>
-                                          <span> {option.label} </span>
-                                          <button
-                                            className="value_css_btn"
-                                            type="button"
-                                            onClick={() =>
-                                              handleOptionRemove(
-                                                option.value,
-                                                2
-                                              )
-                                            }
-                                          >
-                                            x
-                                          </button>
-                                        </>
-                                      </div>
-                                    ))}
-
-                                    <input
-                                      type="text"
-                                      placeholder="Select a person"
-                                      onChange={(e) => handleSearch(e, 2)}
-                                      style={{
-                                        border: "none",
-                                        borderBottom: "1px solid black",
-                                      }}
-                                    />
-                                  </div>
-                                  <br />
-                                  <select
-                                    multiple
-                                    value={personSelectedOptions.map(
-                                      (option) => option.value
-                                    )}
-                                    onChange={(e) => handleOptionSelect(e, 2)}
-                                  >
-                                    {personOptions &&
-                                      personOptions.map((option) => (
-                                        <option
-                                          key={option.value}
-                                          value={option.value}
-                                        >
-                                          {option.label}
-                                        </option>
-                                      ))}
-                                  </select>
+                                  <Select options={personOptions} Placeholder={"Person"} id={"2"} />
                                 </div>
 
                                 <div className="box_wrapper">
@@ -724,60 +469,9 @@ const AddDealNew = () => {
                                 marginTop: "15px",
                               }}
                             >
-                              <div
-                                className="box_wrapper"
-                                style={{ margin: "0 auto" }}
-                              >
+                              <div className="box_wrapper" id="myDropdown">
                                 <label style={labelStyle}>in</label>
-                                <div
-                                  className="input_component box_style"
-                                  style={{ height: "100%" }}
-                                >
-                                  {tasksSelectedOptions.map((option) => (
-                                    <div className="value_css">
-                                      <>
-                                        <span> {option.label} </span>
-                                        <button
-                                          className="value_css_btn"
-                                          type="button"
-                                          onClick={() =>
-                                            handleOptionRemove(option.value, 3)
-                                          }
-                                        >
-                                          x
-                                        </button>
-                                      </>
-                                    </div>
-                                  ))}
-
-                                  <input
-                                    type="text"
-                                    placeholder="My Tasks"
-                                    onChange={(e) => handleSearch(e, 3)}
-                                    style={{
-                                      border: "none",
-                                      borderBottom: "1px solid black",
-                                    }}
-                                  />
-                                </div>
-                                <br />
-                                <select
-                                  multiple
-                                  value={tasksSelectedOptions.map(
-                                    (option) => option.value
-                                  )}
-                                  onChange={(e) => handleOptionSelect(e, 3)}
-                                >
-                                  {taskOptions &&
-                                    taskOptions.map((option) => (
-                                      <option
-                                        key={option.value}
-                                        value={option.value}
-                                      >
-                                        {option.label}
-                                      </option>
-                                    ))}
-                                </select>
+                                <Select options={taskOptions} Placeholder={"My Tasks"} id={"3"} />
                               </div>
                             </div>
 
