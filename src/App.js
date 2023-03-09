@@ -21,7 +21,6 @@ const App = () => {
         <Route path="/googleAddDeal" element={<AddDeal />} />
         <Route path="/googleAddDealNew" element={<AddDealNew />} />
         <Route path="/saveGmail" element={<SaveGmailScreen />} />
-        <Route path="/saveGmail" element={<SaveGmailScreen />} />
         <Route path="/MyTask" element={<MyTask />} />
         <Route path="/MyTasks" element={<MyTasks />} />
       </Routes>
