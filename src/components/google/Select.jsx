@@ -347,8 +347,6 @@ const Select = ({ options, Placeholder, id }) => {
 
     return (
         <div className="input_component box_style">
-
-
             <div className="container">
                 <select multiple data-multi-select-plugin={id}>
                     {options &&

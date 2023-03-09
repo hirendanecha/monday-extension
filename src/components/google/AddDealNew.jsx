@@ -258,6 +258,7 @@ const AddDealNew = () => {
                               <label style={labelStyle}>Date</label>
                               <input
                                 className="input_component"
+                                style={{ padding: '12px' }}
                                 type="date"
                                 id="date"
                                 name="date"
@@ -274,6 +275,7 @@ const AddDealNew = () => {
                                 id="description"
                                 name="description"
                                 style={{
+                                  padding: '12px',
                                   border: !description
                                     ? "1px solid red"
                                     : "1px solid #c3c6d4",
@@ -293,6 +295,7 @@ const AddDealNew = () => {
                                   ref={inputRef}
                                   className="input_component"
                                   type="text"
+                                  style={{ padding: '12px' }}
                                   id="link"
                                   name="link"
                                   value={link}
@@ -322,6 +325,7 @@ const AddDealNew = () => {
                                       id="email"
                                       name="email"
                                       style={{
+                                        padding: '12px',
                                         border: !email
                                           ? "1px solid red"
                                           : "1px solid green",
@@ -348,6 +352,7 @@ const AddDealNew = () => {
                                     style={{
                                       display: "flex",
                                       alignItems: "center",
+                                      padding: '8px',
                                       justifyContent: "space-between",
                                     }}
                                   >
@@ -418,6 +423,7 @@ const AddDealNew = () => {
                                     type="number"
                                     id="number"
                                     name="number"
+                                    style={{ padding: '12px' }}
                                     value={number}
                                     onChange={(e) => setNumber(e.target.value)}
                                   />
