@@ -60,7 +60,7 @@
   border: 1px solid #c3c6d4;
   border-left: none;
   margin-top: 4px;
-  height: 48px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,4 +71,19 @@
 
 .copy-link-button:hover {
   background: #cccccc;
+}
+
+.phone_button {
+  flex-shrink: 0;
+  border: 1px solid #c3c6d4;
+  border-right: none;
+  margin-top: 4px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  color: #333333;
+  outline: none;
+  cursor: pointer;
 }
