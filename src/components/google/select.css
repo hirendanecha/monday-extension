@@ -33,6 +33,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     height: auto;
+    min-height: 40px;
     width: 100%;
     padding: 3px 8px;
     font-size: 14px;

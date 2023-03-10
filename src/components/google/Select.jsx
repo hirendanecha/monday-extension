@@ -347,7 +347,7 @@ const Select = ({ options, placeholder, id }) => {
     }, []);
 
     return (
-        <div className="input_component box_style">
+        <div className="input_component box_style" style={{ height: 'auto' }}>
             <div className="container">
                 <select multiple data-multi-select-plugin={id} ref={ref}>
                     {options &&
@@ -356,7 +356,6 @@ const Select = ({ options, placeholder, id }) => {
                                 key={option.value}
                                 value={option.value}
                             >
-
                                 {option.label}
                             </option>
                         ))}

@@ -100,6 +100,14 @@ const AddDealNew = () => {
       label: "Option 3",
       value: "Option 3",
     },
+    {
+      label: "Option 4",
+      value: "Option 4",
+    },
+    {
+      label: "Option 5",
+      value: "Option 5",
+    },
   ]);
 
   const labelStyle = {
@@ -128,6 +136,11 @@ const AddDealNew = () => {
     document.execCommand("copy");
     alert("Text copied to clipboard!");
   };
+  // const flags = {
+
+  //   US: "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/US.svg",
+  //   IND: "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/IN.svg",
+  // }
 
   return (
     <div>
@@ -405,7 +418,19 @@ const AddDealNew = () => {
 
                                 <div className="box_wrapper">
                                   <label style={labelStyle}>Phone</label>
-                                  <div style={{ display: "flex" }}>
+                                  <div style={{ display: "flex", position: 'relative' }}>
+
+                                    {/* <img
+                                      alt={`${countryCode?.name}`}
+                                      src={flags[countryCode?.code]}
+                                      style={{
+                                        display: !countryCode?.code && 'none',
+                                        height: '35px',
+                                        position: 'absolute',
+                                        top: '7px',
+                                        left: '5px',
+                                      }} /> */}
+
                                     <select className="phone_button"
                                       value={countryCode?.code}
                                       onChange={(e) => {
