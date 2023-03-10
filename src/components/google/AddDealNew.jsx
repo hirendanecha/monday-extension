@@ -1,8 +1,7 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import favIcon from "../../images/favIcon.png";
 import "./AddDealNew.css";
 import LoadingScreen from "./LoadingScreen";
-import PhoneInput from "react-phone-input-2";
 import { useNavigate } from "react-router-dom";
 import sunimg from "../../images/wb_sunny.png";
 import green from "../../images/green.png";
@@ -19,6 +18,7 @@ import PersonRound from "../icons/PersonRound";
 import Wand from "../icons/Wand";
 import Person from "../icons/Person";
 import Select from "./Select"
+import { countries } from "./countries";
 
 const AddDealNew = () => {
   const [loading, SetLoading] = useState(false);
@@ -36,6 +36,7 @@ const AddDealNew = () => {
   const [fieldValue, setFieldValue] = useState("My first task here Yay!");
   const navigate = useNavigate();
   const inputRef = useRef(null);
+  const [countryCode, setCountryCode] = useState(countries[0]);
   const [personOptions, setPersonOptions] = useState([
     {
       id: "1",
@@ -341,7 +342,7 @@ const AddDealNew = () => {
 
                                 <div className="box_wrapper" id="myDropdown">
                                   <label style={labelStyle}>Status</label>
-                                  <Select options={options} Placeholder={"Status"} id={"1"} />
+                                  <Select options={options} placeholder={"Status"} id={"1"} />
                                 </div>
 
                                 <div className="box_wrapper">
@@ -399,21 +400,40 @@ const AddDealNew = () => {
 
                                 <div className="box_wrapper" id="myDropdown">
                                   <label style={labelStyle}>Person</label>
-                                  <Select options={personOptions} Placeholder={"Person"} id={"2"} />
+                                  <Select options={personOptions} placeholder={"Person"} id={"2"} />
                                 </div>
 
                                 <div className="box_wrapper">
                                   <label style={labelStyle}>Phone</label>
-                                  <PhoneInput
-                                    inputProps={{
-                                      required: true,
-                                    }}
-                                    country={"us"}
-                                    value={phone}
-                                    onChange={(e) => {
-                                      setPhone(e);
-                                    }}
-                                  />
+                                  <div style={{ display: "flex" }}>
+                                    <select className="phone_button"
+                                      value={countryCode?.code}
+                                      onChange={(e) => {
+                                        const countryCodee = e.target.value;
+                                        const country = countries.find((c) => c.code === countryCodee);
+                                        setCountryCode(country);
+
+                                        const dd = document.getElementById("phone");
+                                        dd.value = e.target.value;
+                                      }}>
+                                      {countries.map((country) => (
+                                        <>
+                                          <option key={country?.code} value={country.dialCode}>
+                                            {country?.code}
+                                          </option>
+                                        </>
+                                      ))}
+                                    </select>
+                                    <input
+                                      className="input_component"
+                                      type="tel"
+                                      id="phone"
+                                      name="phone"
+                                      style={{ padding: '12px' }}
+                                      value={phone}
+                                      onChange={(e) => setPhone(e.target.value)}
+                                    />
+                                  </div>
                                 </div>
 
                                 <div className="box_wrapper">
@@ -477,7 +497,7 @@ const AddDealNew = () => {
                             >
                               <div className="box_wrapper" id="myDropdown">
                                 <label style={labelStyle}>in</label>
-                                <Select options={taskOptions} Placeholder={"My Tasks"} id={"3"} />
+                                <Select options={taskOptions} placeholder={"My Tasks"} id={"3"} />
                               </div>
                             </div>
 
@@ -513,7 +533,7 @@ const AddDealNew = () => {
           {loading && <LoadingScreen />}
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

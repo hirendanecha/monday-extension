@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import "./select.css";
 
 
-const Select = ({ options, Placeholder, id }) => {
+const Select = ({ options, placeholder, id }) => {
+    const ref = useRef()
     const init = useCallback((element) => {
         let wrapper = document.createElement("div");
         wrapper.addEventListener("click", clickOnWrapper);
@@ -12,6 +13,7 @@ const Select = ({ options, Placeholder, id }) => {
         const search_div = document.createElement("div");
         search_div.classList.add("search-container");
         const input = document.createElement("input");
+        input.classList.add("selected-input-" + id);
         input.classList.add("selected-input");
         input.setAttribute("autocomplete", "off");
         input.setAttribute("tabindex", "0");
@@ -40,16 +42,15 @@ const Select = ({ options, Placeholder, id }) => {
     }, []);
 
     function removePlaceholder(wrapper) {
-        const input_search = wrapper.querySelector(".selected-input");
+        const input_search = wrapper.querySelector(".selected-input-" + id);
         input_search.removeAttribute("placeholder");
     }
 
     function addPlaceholder(wrapper) {
-        const input_search = wrapper.querySelector(".selected-input");
+        const input_search = wrapper.querySelector(".selected-input-" + id);
         const tokens = wrapper.querySelectorAll(".selected-wrapper");
         if (!tokens.length && !(document.activeElement === input_search))
-            input_search.setAttribute("placeholder", '----------');
-        // input_search.setAttribute("placeholder", Placeholder === "Status" ? `Set Status` : Placeholder === "Person" ? 'Set Person' : 'My Tasks');
+            input_search.setAttribute("placeholder", placeholder === "My Tasks" ? "My Tasks" : `Set ${placeholder}`);
     }
 
     function createInitialTokens(select) {
@@ -348,13 +349,14 @@ const Select = ({ options, Placeholder, id }) => {
     return (
         <div className="input_component box_style">
             <div className="container">
-                <select multiple data-multi-select-plugin={id}>
+                <select multiple data-multi-select-plugin={id} ref={ref}>
                     {options &&
                         options.map((option) => (
                             <option
                                 key={option.value}
                                 value={option.value}
                             >
+
                                 {option.label}
                             </option>
                         ))}
