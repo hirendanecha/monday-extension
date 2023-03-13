@@ -443,7 +443,7 @@ const AddDealNew = () => {
                                       }}>
                                       {countries.map((country) => (
                                         <>
-                                          <option key={country?.code} value={country.dialCode}>
+                                          <option key={country?.code} value={country.dial_code}>
                                             {country?.code}
                                           </option>
                                         </>
