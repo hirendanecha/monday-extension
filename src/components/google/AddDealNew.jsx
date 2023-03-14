@@ -388,12 +388,10 @@ const AddDealNew = () => {
                                           >
                                             <span
                                               className="star"
-                                              style={{ fontSize: "16px" }}
+                                              style={{ fontSize: "30px" }}
                                             >
-                                              <span
-                                                className="icon_component icon_component--clickable fa fa fa-star"
-                                                role="button"
-                                              />
+                                              ★
+                                              {/* <i class="star icon"></i> */}
                                             </span>
                                           </button>
                                         );
