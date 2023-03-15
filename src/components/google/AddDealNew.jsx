@@ -19,6 +19,7 @@ import Wand from "../icons/Wand";
 import Person from "../icons/Person";
 import Select from "./Select"
 import { countries } from "./countries";
+import SelectNew from "./SelectNew";
 
 const AddDealNew = () => {
   const [loading, SetLoading] = useState(false);
@@ -355,7 +356,8 @@ const AddDealNew = () => {
 
                                 <div className="box_wrapper" id="myDropdown">
                                   <label style={labelStyle}>Status</label>
-                                  <Select options={options} placeholder={"Status"} id={"1"} />
+                                  {/* <Select options={options} placeholder={"Status"} id={"1"} /> */}
+                                  <SelectNew options={options} placeholder={"Status"} />
                                 </div>
 
                                 <div className="box_wrapper">
@@ -391,7 +393,6 @@ const AddDealNew = () => {
                                               style={{ fontSize: "30px" }}
                                             >
                                               ★
-                                              {/* <i class="star icon"></i> */}
                                             </span>
                                           </button>
                                         );
@@ -409,10 +410,12 @@ const AddDealNew = () => {
                                   </div>
                                 </div>
 
-                                <div className="box_wrapper" id="myDropdown">
+                                {/* <div className="box_wrapper" id="myDropdown">
                                   <label style={labelStyle}>Person</label>
-                                  <Select options={personOptions} placeholder={"Person"} id={"2"} />
-                                </div>
+                                  {/* <Select options={personOptions} placeholder={"Person"} id={"2"} /> 
+
+                                  <SelectNew options={personOptions} placeholder={"Person"} />
+                                </div> */}
 
                                 <div className="box_wrapper">
                                   <label style={labelStyle}>Phone</label>
@@ -520,7 +523,8 @@ const AddDealNew = () => {
                             >
                               <div className="box_wrapper" id="myDropdown">
                                 <label style={labelStyle}>in</label>
-                                <Select options={taskOptions} placeholder={"My Tasks"} id={"3"} />
+                                {/* <Select options={taskOptions} placeholder={"My Tasks"} id={"3"} /> */}
+                                <SelectNew options={taskOptions} placeholder={"My Tasks"} />
                               </div>
                             </div>
 
