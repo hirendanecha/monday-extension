@@ -357,7 +357,7 @@ const AddDealNew = () => {
                                 <div className="box_wrapper" id="myDropdown">
                                   <label style={labelStyle}>Status</label>
                                   {/* <Select options={options} placeholder={"Status"} id={"1"} /> */}
-                                  <SelectNew options={options} placeholder={"Status"} />
+                                  <SelectNew options={options} placeholder={"Status"} id={"1"} />
                                 </div>
 
                                 <div className="box_wrapper">
@@ -410,12 +410,12 @@ const AddDealNew = () => {
                                   </div>
                                 </div>
 
-                                {/* <div className="box_wrapper" id="myDropdown">
+                                <div className="box_wrapper" id="myDropdown">
                                   <label style={labelStyle}>Person</label>
-                                  {/* <Select options={personOptions} placeholder={"Person"} id={"2"} /> 
+                                  {/* <Select options={personOptions} placeholder={"Person"} id={"2"} />  */}
 
-                                  <SelectNew options={personOptions} placeholder={"Person"} />
-                                </div> */}
+                                  <SelectNew options={personOptions} placeholder={"Person"} id={"2"} />
+                                </div>
 
                                 <div className="box_wrapper">
                                   <label style={labelStyle}>Phone</label>
@@ -524,7 +524,7 @@ const AddDealNew = () => {
                               <div className="box_wrapper" id="myDropdown">
                                 <label style={labelStyle}>in</label>
                                 {/* <Select options={taskOptions} placeholder={"My Tasks"} id={"3"} /> */}
-                                <SelectNew options={taskOptions} placeholder={"My Tasks"} />
+                                <SelectNew options={taskOptions} placeholder={"My Tasks"} id={"3"} />
                               </div>
                             </div>
 

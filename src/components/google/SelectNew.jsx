@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "./SelectNew.css";
 
-export default function SelectNew({ placeholder, options }) {
+export default function SelectNew({ placeholder, options, id }) {
     var Motus = {};
     useEffect(() => {
         (function () {
@@ -29,15 +29,15 @@ export default function SelectNew({ placeholder, options }) {
                 var list = document.createElement("ul");
 
                 //set the ids
-                var timestamp = Math.round(new Date().getTime() * Math.random());
-                container.setAttribute("id", "multiselect_container_" + timestamp);
+                container.setAttribute("id", "multiselect_container_" + id);
                 dataContainer.setAttribute(
                     "id",
-                    "multiselect_datacontainer_" + timestamp
+                    "multiselect_datacontainer_" + id
                 );
-                multiselectLabel.setAttribute("id", "multiselect_label_" + timestamp);
-                button.setAttribute("id", "multiselect_button_" + timestamp);
-                list.setAttribute("id", "multiselect_list_" + timestamp);
+                multiselectLabel.setAttribute("id", "multiselect_label_" + id);
+                button.setAttribute("id", "multiselect_button_" + id);
+                list.setAttribute("id", "multiselect_list_" + id);
+
 
                 var _fnIsChild = function (element, parent) {
                     var node = element.parentNode;
@@ -273,7 +273,7 @@ export default function SelectNew({ placeholder, options }) {
         })();
 
         var data = options;
-        var element = document.getElementById("multiselect__container");
+        var element = document.getElementById("multiselect__container-" + id);
 
         var select = function (data) {
             console.log(data);
@@ -288,7 +288,7 @@ export default function SelectNew({ placeholder, options }) {
 
     return (
         <div style={{ width: '100%' }}>
-            <div id="multiselect__container"></div>
+            <div id={"multiselect__container-" + id}></div>
         </div>
     );
 }
