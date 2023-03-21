@@ -91,3 +91,214 @@
   color: #323338;
   font-family: 'Roboto';
 }
+
+button:disabled,
+button[disabled] {
+  background-color: #ffcb008f !important;
+  color: rgb(0 0 0 / 48%) !important;
+  box-shadow: 0px 4px 8px rgba(197, 199, 208, 0.5) !important;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: black;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: #DADADA;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #DADADA;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.toggleText {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-size: 16px;
+  color: rgb(154, 154, 154);
+  margin: 0px;
+}
+
+
+
+.plan-card {
+  background: #fff;
+  cursor: pointer;
+  /* font-family: 'Nunito Sans', sans-serif; */
+  /* padding: 10px 2rem 20px; */
+  /* border-radius: 10px;
+  border-bottom: 4px solid #000446; */
+  border-radius: 4px 4px 0px 0px;
+  box-shadow: 0 6px 30px rgba(207, 212, 222, 0.6)
+}
+
+.plan-card h2 {
+  /* margin-bottom: 15px;
+  padding: 10px 2rem 20px; */
+  /* background-color: rgba(255, 203, 0, 0.3); */
+  color: #dadada;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 22px;
+  color: black;
+}
+
+.plan-card h2 span {
+  display: block;
+  /* margin-top: -4px; */
+  color: #4d4d4d;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: none
+}
+
+.etiquet-price {
+  position: relative;
+  background: #fdbd4a;
+  width: 14.93rem;
+  margin-left: 0.1rem;
+  padding: .2rem 1.2rem;
+  border-radius: 5px 0 0 5px
+}
+
+.etiquet-price p {
+  margin: 0;
+  padding-top: .4rem;
+  display: flex;
+  font-size: 1.9rem;
+  font-weight: 800;
+}
+
+.etiquet-price p:before {
+  content: "$";
+  margin-right: 5px;
+  font-size: 15px;
+  font-weight: 600
+}
+
+.etiquet-price p:after {
+  content: "/handle";
+  margin-left: 5px;
+  font-size: 15px;
+  font-weight: 600
+}
+
+.etiquet-price div {
+  position: absolute;
+  bottom: -22px;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-top: 13px solid #c58102;
+  border-bottom: 10px solid transparent;
+  border-right: 13px solid transparent;
+  z-index: -6
+}
+
+.benefits-list {
+  margin-top: 8px;
+  padding: 6px 12px
+}
+
+.benefits-list ul {
+  padding: 0 16px;
+  margin-top: 8px;
+}
+
+.benefits-list ul li {
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 400;
+  color: #676879;
+  list-style-position: inside;
+}
+
+.benefits-list ul li svg {
+  width: .9rem;
+}
+
+.benefits-list ul li span {
+  font-weight: 600
+}
+
+.button-get-plan {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.2rem
+}
+
+.button-get-plan a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000446;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: .8rem;
+  letter-spacing: .05rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.button-get-plan a:hover {
+  transform: translateX(-3%);
+  box-shadow: 0 3px 10px rgba(207, 212, 222, 0.9)
+}
+
+.button-get-plan svg {
+  margin-right: 10px;
+  width: .9rem;
+  fill: #fff
+}
