@@ -4,6 +4,9 @@ import "./AddDealNew.css";
 import LoadingScreen from "./LoadingScreen";
 import { useNavigate } from "react-router-dom";
 import sunimg from "../../images/wb_sunny.png";
+import done from "../../images/done.png";
+import Wrong from "../../images/wrong.png";
+import CopyImg from "../../images/CopyImg.png";
 import green from "../../images/green.png";
 import red from "../../images/red.png";
 import violate from "../../images/violate.png";
@@ -28,8 +31,10 @@ const AddDealNew = () => {
   const [file, setFile] = useState("");
   const [date, setDate] = useState("");
   const [link, setLink] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("asafpeled.sm@gmail.com");
   const [toast, setToast] = useState(false);
+  const [fillUpEmailShow, setFillUpEmailShow] = useState(false);
+  const [noEmailValidate, setNoEmailValidate] = useState(false);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [phone, setPhone] = useState();
@@ -132,7 +137,8 @@ const AddDealNew = () => {
     });
   };
 
-  const copyToClipboard = () => {
+  const copyToClipboard = (e) => {
+    e.preventDefault();
     inputRef.current.select();
     document.execCommand("copy");
     alert("Text copied to clipboard!");
@@ -142,6 +148,21 @@ const AddDealNew = () => {
   //   US: "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/US.svg",
   //   IND: "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/IN.svg",
   // }
+
+
+  const autoFillHanler = (e) => {
+    e.preventDefault();
+    setFillUpEmailShow(true)
+  }
+  const noEmailValidatedHanler = (e) => {
+    e.preventDefault();
+    setNoEmailValidate(true)
+  }
+
+  const navigateLink = (e) => {
+    e.preventDefault();
+    navigate("/googleSaveContact")
+  }
 
   return (
     <div>
@@ -318,7 +339,7 @@ const AddDealNew = () => {
                                 />
                                 <button
                                   className="copy-link-button"
-                                  onClick={copyToClipboard}
+                                // onClick={(e) => copyToClipboard(e)}
                                 >
                                   <CopyLinkIcon />
                                 </button>
@@ -332,28 +353,226 @@ const AddDealNew = () => {
                                 }}
                               >
                                 <div className="box_wrapper">
-                                  <label style={labelStyle}>Email</label>
-                                  <div style={{ display: "flex" }}>
-                                    <input
-                                      className="input_component"
-                                      type="text"
-                                      id="email"
-                                      name="email"
-                                      style={{
-                                        padding: '12px',
-                                        border: !email
-                                          ? "1px solid red"
-                                          : "1px solid green",
-                                      }}
-                                      value={email}
-                                      onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                    <button className="copy-link-button">
-                                      <EmailIcon />
-                                    </button>
-                                  </div>
-                                </div>
+                                  <label style={labelStyle}>Email with Validated Button</label>
 
+                                  <div>
+                                    {!fillUpEmailShow ? <div>
+                                      <button
+                                        onClick={(event) => autoFillHanler(event)}
+                                        style={{
+                                          padding: "8px 16px",
+                                          height: "40px",
+                                          color: "#323338",
+                                          borderRadius: "4px",
+                                          width: '100%',
+                                          background: '#FFCB00',
+                                          boxShadow: '0px 4px 8px rgba(197, 199, 208, 0.5)',
+                                          fontWeight: '400',
+                                          fontSize: '16px',
+                                          fontFamily: "Roboto",
+                                          display: 'flex',
+                                          justifyContent: 'center',
+                                          alignItems: 'center',
+                                          textAlign: 'center',
+                                        }}
+                                      >
+                                        <span
+                                          style={{ fontSize: "25px" }}
+                                        >
+                                          +
+                                        </span> <span style={{ marginLeft: '8px', marginTop: '2px' }}>Get a validated email</span>
+                                      </button>
+                                    </div> : (
+                                      <div style={{ display: "flex", border: '1px solid #c3c6d4', justifyContent: 'space-evenly', background: 'white' }}>
+                                        <img
+                                          width={"30px"}
+                                          height={"30px"}
+                                          src={done}
+                                          alt="done"
+                                          style={{ marginTop: '4px' }}
+                                        />
+                                        <input
+                                          ref={inputRef}
+                                          className="input_component"
+                                          type="text"
+                                          style={{
+                                            padding: '12px', margin: 0, border: 'none', width: 'auto',
+                                            whiteSpace: 'nowrap',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            color: '#0A66C2'
+                                          }}
+                                          id="email"
+                                          name="email"
+                                          value={email}
+                                        />
+                                        <button
+                                          className="copy-link-button"
+                                          style={{ border: 'none', margin: 0, background: 'white' }}
+                                          onClick={(e) => copyToClipboard(e)}
+                                        >
+                                          <img
+                                            width={"25px"}
+                                            height={"25px"}
+                                            src={CopyImg}
+                                            alt="Copy"
+                                          />
+                                        </button>
+                                      </div>
+                                    )}
+                                  </div>
+
+
+                                  <h1 style={{
+                                    fontFamily: 'Roboto',
+                                    fontStyle: 'normal',
+                                    fontWeight: '400',
+                                    fontSize: '16px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    color: '#676879',
+                                    margin: 0,
+                                    width: '300px',
+                                    marginTop: '8px',
+                                  }}>You're on Pro Plan. You have 85/300 credits.</h1>
+
+
+                                </div>
+                                <hr />
+                                <div className="box_wrapper">
+                                  <label style={labelStyle}>No Email with Validated Button</label>
+
+                                  <div>
+                                    {!noEmailValidate ? <div>
+                                      <button
+                                        onClick={(event) => noEmailValidatedHanler(event)}
+                                        style={{
+                                          padding: "8px 16px",
+                                          height: "40px",
+                                          color: "#323338",
+                                          borderRadius: "4px",
+                                          width: '100%',
+                                          background: '#FFCB00',
+                                          boxShadow: '0px 4px 8px rgba(197, 199, 208, 0.5)',
+                                          fontWeight: '400',
+                                          fontSize: '16px',
+                                          fontFamily: "Roboto",
+                                          display: 'flex',
+                                          justifyContent: 'center',
+                                          alignItems: 'center',
+                                          textAlign: 'center',
+                                        }}
+                                      >
+                                        <span
+                                          style={{ fontSize: "25px" }}
+                                        >
+                                          +
+                                        </span> <span style={{ marginLeft: '8px', marginTop: '2px' }}>Get a validated email</span>
+                                      </button>
+                                    </div> : (
+                                      <div style={{ display: "flex", border: '1px solid #c3c6d4', justifyContent: 'start', background: 'white' }}>
+                                        <img
+                                          width={"25px"}
+                                          height={"25px"}
+                                          src={Wrong}
+                                          alt="Wrong"
+                                          style={{ marginLeft: '12px', marginTop: '7px' }}
+                                        />
+                                        <input
+                                          ref={inputRef}
+                                          className="input_component"
+                                          type="text"
+                                          style={{
+                                            padding: '12px', margin: 0, border: 'none', width: 'auto',
+                                            whiteSpace: 'nowrap',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            color: '#0A66C2'
+                                          }}
+                                          id="email"
+                                          name="email"
+                                          // value={email}
+                                          placeholder="No validated email found."
+                                        />
+                                      </div>
+                                    )}
+                                  </div>
+
+
+                                  <h1 style={{
+                                    fontFamily: 'Roboto',
+                                    fontStyle: 'normal',
+                                    fontWeight: '400',
+                                    fontSize: '16px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    color: '#676879',
+                                    margin: 0,
+                                    width: '300px',
+                                    marginTop: '8px',
+                                  }}>You're on Pro Plan. You have 85/300 credits.</h1>
+
+
+                                </div>
+                                <hr />
+                                <div className="box_wrapper">
+                                  <label style={labelStyle}>Disabled Validated Button</label>
+
+                                  <div>
+                                    <div>
+                                      <button
+                                        onClick={(event) => noEmailValidatedHanler(event)}
+                                        disabled={email}
+                                        style={{
+                                          padding: "8px 16px",
+                                          height: "40px",
+                                          color: "#323338",
+                                          borderRadius: "4px",
+                                          width: '100%',
+                                          background: '#FFCB00',
+                                          boxShadow: '0px 4px 8px rgba(197, 199, 208, 0.5)',
+                                          fontWeight: '400',
+                                          fontSize: '16px',
+                                          fontFamily: "Roboto",
+                                          display: 'flex',
+                                          justifyContent: 'center',
+                                          alignItems: 'center',
+                                          textAlign: 'center',
+                                        }}
+                                      >
+                                        <span
+                                          style={{ fontSize: "25px" }}
+                                        >
+                                          +
+                                        </span> <span style={{ marginLeft: '8px', marginTop: '2px' }}>Get a validated email</span>
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                  <h1 style={{
+                                    fontFamily: 'Roboto',
+                                    fontStyle: 'normal',
+                                    fontWeight: '400',
+                                    fontSize: '16px',
+                                    color: '#676879',
+                                    margin: 0,
+                                    width: '300px',
+                                    marginTop: '8px',
+                                  }}>You have no credits left for this billing cycle.
+                                    <span onClick={(e) => {
+                                      e.preventDefault()
+                                      navigate('/Pricing')
+                                    }} style={{
+                                      color: '#323338',
+                                      fontFamily: 'Roboto',
+                                      fontWeight: 'bold',
+                                      borderBottom: '1px solid #676879',
+                                      cursor: 'pointer',
+                                    }}>Upgrade to get credits</span>
+                                  </h1>
+
+
+                                </div>
                                 <div className="box_wrapper" id="myDropdown">
                                   <label style={labelStyle}>Status</label>
                                   {/* <Select options={options} placeholder={"Status"} id={"1"} /> */}
@@ -547,6 +766,36 @@ const AddDealNew = () => {
                               >
                                 Create
                               </button>
+                            </div>
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                marginTop: "24px",
+                                marginBottom: "24px",
+                                textAlign: 'center'
+                              }}
+                            >
+                              <h1 style={{
+                                fontFamily: 'Roboto',
+                                fontStyle: 'normal',
+                                fontWeight: '400',
+                                fontSize: '16px',
+                                color: '#676879',
+                                margin: 0,
+                                marginTop: '8px',
+                              }}>Offsite Subscription <br />
+                                <span onClick={(e) => {
+                                  e.preventDefault()
+                                  navigate('/Pricing')
+                                }} style={{
+                                  color: '#323338',
+                                  fontFamily: 'Roboto',
+                                  fontWeight: 'bold',
+                                  borderBottom: '1px solid #676879',
+                                  cursor: 'pointer',
+                                }}>How to Upgrade</span>
+                              </h1>
                             </div>
                           </div>
                         </div>

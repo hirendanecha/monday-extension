@@ -4,6 +4,7 @@ import AddDeal from "./components/google/AddDeal";
 import AddDealNew from "./components/google/AddDealNew";
 import MyTask from "./components/google/MyTask";
 import MyTasks from "./components/google/MyTasks";
+import Pricing from "./components/google/Pricing";
 import SaveContact from "./components/google/SaveContact";
 import SaveContactNew from "./components/google/SaveContactNew";
 import SaveGmailScreen from "./components/google/SaveGmailScreen";
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/saveGmail" element={<SaveGmailScreen />} />
         <Route path="/MyTask" element={<MyTask />} />
         <Route path="/MyTasks" element={<MyTasks />} />
+        <Route path="/Pricing" element={<Pricing />} />
       </Routes>
     </div>
   );
