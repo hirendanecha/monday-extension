@@ -12,11 +12,16 @@ import { useNavigate } from "react-router-dom";
 
 const Pricing = () => {
     const navigate = useNavigate();
+    const [isChecked, setIsChecked] = useState(false);
     const [selected, setSelected] = useState(3)
 
     const selectedHandler = (e, index) => {
         setSelected(index)
     }
+
+    const handleCheckboxChange = (event) => {
+        setIsChecked(event.target.checked);
+    };
     return (
         <div>
             <div
@@ -110,17 +115,17 @@ const Pricing = () => {
                             </div>
 
                             <div style={{ display: 'flex', justifyContent: 'end', marginTop: '16px', padding: '12px', alignItems: 'center' }}>
-                                <h1 className="toggleText">Monthly
+                                <h1 className="toggleText" style={{ color: !isChecked ? '#323338' : '' }}>Monthly
                                 </h1>
 
                                 <div style={{ paddingLeft: '8px', paddingRight: '8px' }}>
                                     <label className="switch">
-                                        <input type="checkbox" checked />
+                                        <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
                                         <span className="slider round" />
                                     </label>
                                 </div>
 
-                                <h1 className="toggleText" style={{ color: '#323338' }}>Annualy
+                                <h1 className="toggleText" style={{ color: !!isChecked ? '#323338' : '' }}>Annualy
                                 </h1>
                             </div>
 
