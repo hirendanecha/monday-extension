@@ -8,6 +8,7 @@ export default function CloseSmall() {
       width="27"
       height="27"
       role="button"
+    
       tabindex="0"
       aria-hidden="false"
       aria-label="my CloseSmall icon"

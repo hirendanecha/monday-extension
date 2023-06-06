@@ -1,0 +1,333 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+* {
+  font-family: "Roboto", sans-serif;
+}
+.main {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 31px;
+  margin-right: 39px;
+}
+.main-2 {
+  width: 375px;
+
+  height: "auto";
+  box-shadow: 0px 4px 8px #dadada;
+  position: relative;
+  padding: 0px;
+  background-color: #f8f9fa;
+}
+header {
+  height: 67px;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.101025);
+  > div {
+    display: grid;
+    height: 100%;
+    align-items: center;
+    grid-template-columns: auto auto auto;
+    > div {
+      margin-left: 22px;
+      color: #676879;
+    }
+    > button {
+      color: #676879 !important;
+    }
+  }
+}
+.arrow {
+  color: #676879;
+  height: 15px;
+  width: 15px;
+}
+.header_middle {
+  text-align: center;
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  > .logo_name {
+    font-size: 20px;
+    line-height: 24px;
+    color: black;
+    font-weight: bolder;
+    font-weight: 700;
+    font-weight: bold;
+    font-family: "Jost", sans-serif;
+  }
+}
+.Union_icon {
+  margin-right: 10px;
+}
+.header_right {
+  text-align: right;
+  margin-right: 22px;
+  color: #676879;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 0px;
+}
+.section {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-direction: row;
+}
+.section_left {
+  display: flex;
+}
+.union_img {
+  height: 15px;
+  width: 15px;
+  color: #676879;
+}
+.contact_data {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  padding: 0px;
+
+  margin-left: 10px;
+  > b {
+    font-size: 14px;
+    font-weight: bolder;
+  }
+  > span {
+    font-size: 14px;
+    line-height: 24px;
+    color: solid black;
+    font-weight: 400;
+  }
+  > div {
+    display: flex;
+    justify-content: right;
+  }
+}
+.tab_btn {
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  margin-top: 2rem;
+  font-size: 16px;
+  margin-left: -2rem;
+  margin-right: -2rem;
+  offset: 0px, 4px rgba(0, 0, 0, 0.101);
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  border-bottom-color: #676879;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+ 
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+
+.tablinks.active {
+  border-bottom-color: #ffcb00;
+  color: #323338;
+}
+.tablinks {
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding: 0px 0px;
+  padding-bottom: 4px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  font-family: "Roboto";
+  width: 60%;
+  color: #676879;
+  border-bottom-color: #ffcb00;
+  border-bottom: 2px solid #C5C7D0; /* Add a default transparent border bottom */
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+.box_wrapper {
+  font-weight: 700;
+  font-family: "Roboto";
+  font-size: 18px;
+  color: rgb(50, 51, 56);
+  margin-top: 12px;
+}
+.input_component {
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  height: 48px;
+  min-height: 40px;
+  border: 1px solid #c3c6d4;
+  box-shadow: none;
+  border-radius: 4px;
+  padding: 2px 8px 2px 12px;
+  margin-top: 4px;
+  display: inline-block;
+  font-weight: 400;
+  font-size: 16px;
+  font-family: "Roboto";
+  color: #323338;
+}
+.input_component2 {
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+  height: 75px !important;
+  min-height: 40px;
+  border: 1px solid #c3c6d4;
+  box-shadow: none;
+  border-radius: 4px;
+  padding: 2px 8px 2px 12px;
+  margin-top: 4px;
+  display: inline-block;
+  font-weight: 400;
+  font-size: 16px;
+  font-family: "Roboto";
+  color: #323338;
+}
+.line2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.4rem;
+  > label {
+    margin-left: 0.5rem;
+  }
+}
+.box {
+  padding-left: 30px;
+  padding-top: 30px;
+  padding-right: 30px;
+}
+.update_bottom{
+  margin-top: 2rem;
+
+}
+
+.update_btn {
+  font-size: 12px;
+  width: 141px;
+  font-style: bold;
+  text-align: center;
+  margin-top: 3rem;
+  background-color: #ffcb00;
+  padding: 10px;
+  height: 30px;
+  gap: 5px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > img {
+    height: 19px;
+  }
+}
+.avatar{
+  background-color: black;
+}
+.span1 {
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0.75px;
+  font-family: "Roboto", sans-serif;
+}
+.span2{
+  margin-bottom: 24px;
+}
+
+.bottom {
+  display: flex;
+  margin: auto;
+  margin-top: 5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  font-size: 14px;
+}
+.save_btn {
+  font-size: 12px;
+  font-style: bold;
+  text-align: center;
+  background-color: #ffcb00;
+  padding: 10px;
+  gap: 5px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  width: 63px;
+}
+.update_box {
+  width: 344px;
+  margin-top: 1px;
+  padding: 8px 10px;
+  width: auto;
+  background-color: #ffffff;
+  border-left: 2px solid #0073ea;
+
+  > .box_line_1 {
+    font-size: 14px;
+    line-height: 22px;
+    color: black;
+  }
+  > .box_line_2 {
+    color: #676879;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+  }
+}
+.stroke{
+  margin-top: 1rem;
+  margin-left: -30px;
+  margin-right: -30px;
+  width: full;
+  border: 1px solid #C5C7D0
+}
+.update_title{
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  color: black;
+  margin-bottom: 1rem;
+  
+}

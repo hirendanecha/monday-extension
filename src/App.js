@@ -10,6 +10,7 @@ import SaveContactNew from "./components/google/SaveContactNew";
 import SaveGmailScreen from "./components/google/SaveGmailScreen";
 import Home from "./components/Home";
 import InstallPage from "./components/InstallPage";
+import ContactDetail from "./components/google/ContactDetail";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/MyTask" element={<MyTask />} />
         <Route path="/MyTasks" element={<MyTasks />} />
         <Route path="/Pricing" element={<Pricing />} />
+        <Route path="/ContactDetail" element={<ContactDetail />} />
       </Routes>
     </div>
   );
