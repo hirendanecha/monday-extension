@@ -260,6 +260,13 @@ header {
 }
 .avatar{
   background-color: black;
+  width: 50px;
+  height: 50px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
 }
 .span1 {
   font-size: 14px;
@@ -316,6 +323,8 @@ header {
     margin-top: 4px;
   }
 }
+
+
 .stroke{
   margin-top: 1rem;
   margin-left: -30px;
